@@ -67,11 +67,11 @@ const ensureElementVisibility = async (
 
 const getTrilhaAudio = (segmento: string): string | null => {
   const trilhas = {
-    'Tecnologia': 'url_da_trilha_tech',
-    'Educação': 'url_da_trilha_edu',
-    'Carros': 'url_da_trilha_carros',
-    'Moda': 'url_da_trilha_moda',
-    'Supermercado': 'url_da_trilha_super'
+    'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403422217x222977654070197540/techTrilha.wav?_gl=1*1lwhtit*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4MjAuMzguMC4w',
+    'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403441070x854727213096365400/eduTrilha.wav?_gl=1*rskbrr*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4NDUuMTMuMC4w',
+    'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403283222x421064399760021600/carroTrilha.wav?_gl=1*1yg3gp5*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4NjYuNjAuMC4w',
+    'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403357442x124423842570440700/modaTrilha.wav?_gl=1*1oh0adk*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk5NDguNDkuMC4w',
+    'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403401809x955901487110082800/supTrilha.wav?_gl=1*1m3ieed*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4MjcuMzEuMC4w'
   };
   
   return trilhas[segmento as keyof typeof trilhas] || null;
