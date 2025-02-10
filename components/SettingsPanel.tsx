@@ -12,6 +12,18 @@ interface SettingsPanelProps {
   currentState?: PreviewState;
 }
 
+// Adicionar interface para ofertas
+interface Oferta {
+  id: number;
+  nome: string;
+  imagem: string;
+  preco: number;
+  precoOriginal: number;
+  desconto: number;
+  avaliacoes: number;
+  nota: number;
+}
+
 // Adicionar componentes styled que estavam faltando
 const Group = styled.div`
   margin-bottom: 20px;
@@ -113,19 +125,36 @@ const segmentos = [
     id: 3,
     option: 'Carros',
     image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470386839x892623108604885200/CARROTHUMB.png'
-  },
-  {
-    id: 4,
-    option: 'Educação',
-    image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470401380x994709559571271600/EDUCACAOTHUMB.png'
-  },
-  {
-    id: 5,
-    option: 'Tecnologia',
-    image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470412910x327187726985682700/TECNOLOGIATHUMB.png'
   }
 ];
 
+// Adicionar array de ofertas
+const ofertas: Oferta[] = [
+  {
+    id: 1,
+    nome: 'Kit L\'Oréal Paris Protetor Solar Corporal FPS 70',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217133639x885670586333968000/IMG1.jpg?_gl=1*1uq7nl1*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    preco: 65.99,
+    precoOriginal: 87.99,
+    desconto: 25,
+  },
+  {
+    id: 2,
+    nome: 'Água Micelar L\'Oréal Paris 5 em 1 200ml',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217443226x196366953858600400/IMG2.jpg?_gl=1*s465om*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    preco: 16.49,
+    precoOriginal: 31.99,
+    desconto: 48,
+  },
+  {
+    id: 3,
+    nome: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217451719x841436750508022000/IMG3.jpg?_gl=1*s465om*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    preco: 54.99,
+    precoOriginal: 54.99,
+  
+  }
+];
 
 export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   const modificationsRef = useRef<Record<string, any>>({});
@@ -263,10 +292,6 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     return videos[segmento as keyof typeof videos] || null;
   };
 
-  
-
-
-
   return (
     <div>
       <CreateButton preview={props.preview} />
@@ -293,9 +318,27 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         </CelebrityList>
       </Group>
 
+      {/* Lista de Ofertas */}
+      <Group>
+        <GroupTitle>Ofertas Disponíveis</GroupTitle>
+        <OfertasList>
+          {ofertas.map((oferta) => (
+            <OfertaCard key={oferta.id}>
+              <OfertaImage src={oferta.imagem} alt={oferta.nome} />
+              <ItemName>{oferta.nome}</ItemName>
+              <PrecoContainer>
+                {oferta.desconto > 0 && (
+                  <PrecoOriginal>R$ {oferta.precoOriginal.toFixed(2)}</PrecoOriginal>
+                )}
+                <PrecoAtual>R$ {oferta.preco.toFixed(2)}</PrecoAtual>
+              </PrecoContainer>
+            </OfertaCard>
+          ))}
+        </OfertasList>
+      </Group>
       {/* Lista de Segmentos */}
       <Group>
-        <GroupTitle>Selecione o Segmento</GroupTitle>
+        <GroupTitle>Selecione a Assinatura</GroupTitle>
         <SegmentList>
           {segmentos.map((seg) => (
             <ItemCard 
@@ -315,24 +358,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         </SegmentList>
       </Group>
 
-      {/* Grupo de Textos */}
-      <Group>
-        <GroupTitle>Textos</GroupTitle>
-        {['Title', 'Subtitle', 'Description', 'Value', 'Footer'].map((textName, index) => (
-          <TextInput
-            key={textName}
-            placeholder={textName}
-            onFocus={() => ensureElementVisibility(props.preview, textName, 1.5)}
-            onChange={(e) =>
-              setPropertyValue(props.preview, textName, e.target.value, modificationsRef.current)
-            }
-          />
-        ))}
-      </Group>
-
-      <Button onClick={() => console.log('Ação adicional')} style={{ width: '100%' }}>
-        Executar Ação
-      </Button>
+      
     </div>
   );
 };
@@ -347,7 +373,8 @@ const CelebrityList = styled.div`
 
 const SegmentList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  height: 240px;
   gap: 15px;
   margin-top: 15px;
 `;
@@ -371,7 +398,7 @@ const ItemCard = styled.div<{ selected?: boolean }>`
 
 const CelebrityImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 240px;
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 8px;
@@ -379,9 +406,72 @@ const CelebrityImage = styled.img`
 
 const SegmentImage = styled.img`
   width: 100%;
-  height: 120px;
+  height: 200px;
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 8px;
+`;
+
+// Adicionar novos componentes styled
+const OfertasList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+`;
+
+const OfertaCard = styled(ItemCard)`
+  position: relative;
+  padding: 15px;
+  width: 240px;
+  height: 260
+  px;
+`;
+
+const OfertaImage = styled.img`
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+`;
+
+const PrecoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+`;
+
+const PrecoOriginal = styled.span`
+  text-decoration: line-through;
+  color: #999;
+  font-size: 14px;
+`;
+
+const PrecoAtual = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  color: #0066cc;
+`;
+
+const DescontoBadge = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4444;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+const Avaliacoes = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
 `;
 

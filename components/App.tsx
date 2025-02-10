@@ -108,14 +108,15 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 80%;
   max-width: 720px;
-  max-height: 720px;
+  max-height: 450px;
   margin: auto;
 `;
 
 const Panel = styled.div`
-  flex: 1;
+  flex: 1;\
+  height:70%;
   position: relative;
   background:rgb(238, 238, 238);
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;
@@ -123,7 +124,7 @@ const Panel = styled.div`
   @media (min-width: 768px) {
     flex: initial;
     margin: 50px;
-    width: 400px;
+    width: 800px;
     border-radius: 15px;
   }
 `;
@@ -133,9 +134,7 @@ const PanelContent = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
   padding: 20px;
-  overflow: auto;
 `;
 
 const LoadIndicator = styled.div`
@@ -150,7 +149,7 @@ const LoadIndicator = styled.div`
   font-size: 15px;
   font-weight: 600;
 
-  @media (min-width: 768px) {
+  @media (min-width: 620px) {
     top: 50px;
     left: calc((100% - 400px) / 2);
   }
