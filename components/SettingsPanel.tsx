@@ -53,13 +53,16 @@ const setPropertyValue = async (
   }
 };
 
-const ensureElementVisibility = (
+const ensureElementVisibility = async (
   preview: Preview,
   elementName: string,
   duration: number
 ) => {
-  // Implementação da função
-  preview.setPropertyValue(elementName, 'visible', true);
+  const element = preview.getElements().find((element) => element.source.name === elementName);
+  if (element) {
+    const modifications = { [`${elementName}.visible`]: true };
+    await preview.setModifications(modifications);
+  }
 };
 
 const getTrilhaAudio = (segmento: string): string | null => {
