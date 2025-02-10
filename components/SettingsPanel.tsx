@@ -165,6 +165,34 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     return videos[celebridade as keyof typeof videos]?.[segmento as keyof (typeof videos)[keyof typeof videos]] || null;
   };
 
+  const getMassinaturaVideo = (celebridade: string, segmento: string): string | null => {
+    const videos = {
+      'Rodrigo Faro': {
+        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400931700x582416702025149400/techAssinaFr.mp4',
+        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400044932x223670292783067400/eduAssinaFr.mp4',
+        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399779609x742226324915374500/carroAssinaFr.mp4',
+        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400547915x156651308633814600/modaAssinaFr.mp4',
+        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400724065x873206400284644900/supAssinaFr.mp4'
+      },
+      'Juliana Paes': {
+        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400903414x912171490243848100/techAssinaJp.mp4',
+        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400028235x661597450319327000/eduAssinaJp.mp4',
+        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399763838x601690833794871200/carroAssinaJp.mp4',
+        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400526276x442065017713140860/modaAssinaJp.mp4',
+        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737478921056x497965842887301060/supAssinaJp.mp4'
+      },
+      'Vitória Strada': {
+        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400878098x486064293906471800/techAssinaVs.mp4',
+        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399826147x120918152965874500/eduAssinaVs.mp4',
+        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399748354x637825058388489500/carroAssinaVs.mp4',
+        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400493413x536744832380690050/modaAssinaVs.mp4',
+        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477988604x893604884965848700/supAssinaVs%20%281%29.mp4'
+      }
+    };
+
+    return videos[celebridade as keyof typeof videos]?.[segmento as keyof (typeof videos)[keyof typeof videos]] || null;
+  };
+
   const handleSelection = async (celebridade: string, segmento: string) => {
     // Atualiza o vídeo da cabeça
     const cabecaUrl = getMcabecaVideo(celebridade, segmento);
@@ -189,6 +217,20 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
           props.preview,
           mioloElement.source.name,
           mioloUrl,
+          modificationsRef.current
+        );
+      }
+    }
+
+    // Atualiza o vídeo da assinatura
+    const assinaturaUrl = getMassinaturaVideo(celebridade, segmento);
+    if (assinaturaUrl) {
+      const assinaturaElement = findElement('assinatura');
+      if (assinaturaElement) {
+        await setPropertyValue(
+          props.preview,
+          assinaturaElement.source.name,
+          assinaturaUrl,
           modificationsRef.current
         );
       }
