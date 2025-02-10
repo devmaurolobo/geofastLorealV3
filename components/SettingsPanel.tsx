@@ -8,6 +8,7 @@ import { CreateButton } from './CreateButton';
 // Adicionar interface SettingsPanelProps
 interface SettingsPanelProps {
   preview: Preview;
+  currentState?: PreviewState;
 }
 
 // Adicionar componentes styled que estavam faltando
