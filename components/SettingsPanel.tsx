@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
-import { TextInput } from './TextInput';
-import { Button } from './Button';
 import { CreateButton } from './CreateButton';
-import sqlite3 from 'sqlite3';
+
 
 // Adicionar interface SettingsPanelProps
 interface SettingsPanelProps {
