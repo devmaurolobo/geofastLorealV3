@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
-import VideoPopup from './VideoPopup';
+import { useRouter } from 'next/router';
+import { useVideo } from '@/contexts/VideoContext';
 
 const Button = styled.button`
   padding: 10px 20px;
@@ -27,8 +28,9 @@ interface CreateButtonProps {
 }
 
 export const CreateButton: React.FC<CreateButtonProps> = (props) => {
+  const router = useRouter();
+  const { addVideo } = useVideo();
   const [isLoading, setIsLoading] = useState(false);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [eventSource, setEventSource] = useState<EventSource | null>(null);
 
   // Função para iniciar o SSE
@@ -39,7 +41,8 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
         const data = JSON.parse(e.data);
         console.log('SSE mensagem recebida:', data);
         if (data.url) {
-          setVideoUrl(data.url);
+          addVideo(data.url); // Adiciona o vídeo ao contexto
+          router.push('/video');
           setIsLoading(false);
           es.close();
           setEventSource(null);
@@ -81,19 +84,6 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       <Button onClick={handleCreate} disabled={isLoading}>
         {isLoading ? 'Processando...' : 'Criar Vídeo'}
       </Button>
-
-      {videoUrl && (
-        <VideoPopup
-          videoUrl={videoUrl}
-          onClose={() => {
-            setVideoUrl(null);
-            if (eventSource) {
-              eventSource.close();
-              setEventSource(null);
-            }
-          }}
-        />
-      )}
     </div>
   );
 };
