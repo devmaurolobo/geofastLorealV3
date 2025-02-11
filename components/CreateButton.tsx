@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
-import { Button } from './Button';
+import { Button } from '@/components/Button';
 import VideoPopup from './VideoPopup';
 
 interface CreateButtonProps {
