@@ -3,15 +3,10 @@ import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
 import { Button } from './Button';
 import VideoPopup from './VideoPopup';
+import { VideoData } from '../types/video';
 
 interface CreateButtonProps {
   preview: Preview;
-}
-
-interface VideoData {
-  id: string;
-  status: string;
-  url: string;
 }
 
 export const CreateButton: React.FC<CreateButtonProps> = (props) => {
@@ -55,30 +50,21 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
     try {
       const response = await fetch('/api/videos', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          source: props.preview.getSource(),
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: props.preview.getSource() }),
       });
 
       const data = await response.json();
-      console.log('Resposta da API:', data); // Debug log para ver a estrutura exata
+      console.log('Dados recebidos:', data);
 
-      // Verifica a estrutura exata do retorno da API
-      const videoUrl = data.url || data.videoUrl || data.video?.url;
-      console.log('URL do vídeo:', videoUrl); // Debug log da URL
-
-      if (videoUrl) {
+      if (data.url) {
         setVideoData({
           id: data.id || '',
           status: 'completed',
-          url: videoUrl
+          url: data.url,
         });
         setShowPopup(true);
       }
-
     } catch (error) {
       console.error('Erro:', error);
     } finally {
