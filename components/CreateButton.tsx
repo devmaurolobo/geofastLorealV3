@@ -111,7 +111,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
 
       {showPopup && videoData && (
         <VideoPopup
-          url={videoData.url}
+                  url={videoData.url}
           onClose={() => {
             setShowPopup(false);
             setVideoData(null);
