@@ -7,15 +7,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { result_url } = req.body;
-    console.log('🎯 Webhook recebido:', { result_url });
+    const { url } = req.body;
+    console.log('🎯 Webhook recebido:', { url });
 
     // Atualiza a URL do vídeo
-    updateVideoUrl(result_url);
+    updateVideoUrl(url);
 
     return res.status(200).json({ 
       success: true,
-      url: result_url
+      url: url
     });
   } catch (error) {
     console.error('❌ Erro no webhook:', error);
