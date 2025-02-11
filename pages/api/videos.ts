@@ -12,13 +12,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   console.log('🔑 API Key presente:', !!process.env.CREATOMATE_API_KEY);
+  console.log('📢 NEXT_PUBLIC_VERCEL_URL:', process.env.NEXT_PUBLIC_VERCEL_URL);
 
   try {
-    console.log('📦 Recebendo requisição:', JSON.stringify(req.body, null, 2));
-    
+    // URL do webhook (URL da Vercel)
+    const webhookUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/webhook-video`;
+    console.log('🔗 Webhook URL:', webhookUrl);
+
     const requestBody = {
       source: req.body.source,
-      webhook_url: 'https://webhook.site/6d5690a6-270c-474e-bbe2-dffcbfde1cc4',
+      webhook_url: webhookUrl, // URL que receberá a notificação
       output_format: 'mp4',
       width: 1920,
       height: 1080,
@@ -26,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       modifications: req.body.modifications || {}
     };
 
-    console.log('📤 Payload sendo enviado:', JSON.stringify(requestBody, null, 2));
+    console.log('📤 Enviando para Creatomate:', JSON.stringify(requestBody, null, 2));
 
     const response = await fetch('https://api.creatomate.com/v1/renders', {
       method: 'POST',
