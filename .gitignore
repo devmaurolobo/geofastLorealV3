@@ -37,3 +37,8 @@ next-env.d.ts
 
 # JetBrains editors
 /.idea
+
+# database
+*.db
+*.sqlite
+video.db

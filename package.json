@@ -21,6 +21,7 @@
   "dependencies": {
     "@creatomate/preview": "^1.5.0",
     "@vercel/kv": "^3.0.0",
+    "better-sqlite3": "^11.8.1",
     "creatomate": "^1.1.0",
     "eslint": "^8.30.0",
     "eslint-config-next": "^12.0.4",
@@ -33,6 +34,7 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "styled-components": "^5.3.6",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "zustand": "^5.0.3"
   }
 }

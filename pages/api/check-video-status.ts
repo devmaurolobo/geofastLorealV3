@@ -2,7 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    // Retorna o status do último vídeo da variável global
+    console.log('🔍 Verificando status do vídeo');
+    console.log('📦 lastVideo:', global.lastVideo);
+
     if (global.lastVideo) {
       return res.status(200).json({
         success: true,

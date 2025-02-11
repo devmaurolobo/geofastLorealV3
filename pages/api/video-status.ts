@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 // Definir interface para a resposta
 interface VideoStatusResponse {
@@ -13,18 +13,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
-  // Mantenha a conexão viva
-  const intervalId = setInterval(() => {
-    res.write(':\n\n'); // heartbeat
-  }, 30000);
+  // Envia o status inicial
+  res.write(`data: ${JSON.stringify(global.lastVideo)}\n\n`);
 
-  // Função para enviar atualizações
-  const sendUpdate = (data: any) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
+  // Mantém a conexão aberta
+  const interval = setInterval(() => {
+    res.write(`data: ${JSON.stringify(global.lastVideo)}\n\n`);
+  }, 1000);
 
-  // Limpe o intervalo quando a conexão for fechada
+  // Limpa o intervalo quando a conexão é fechada
   req.on('close', () => {
-    clearInterval(intervalId);
+    clearInterval(interval);
   });
 } 

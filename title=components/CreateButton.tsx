@@ -22,7 +22,6 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
         console.log('SSE mensagem recebida:', data);
         if (data.url) {
           setVideoUrl(data.url);
-          setIsLoading(false);
           es.close();
           setEventSource(null);
         }
@@ -48,13 +47,17 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       });
       const data = await response.json();
       console.log('📤 Resposta da API:', data);
+      // Caso a resposta já contenha URL (processamento instantâneo), atualiza imediatamente
+      if (data.url) {
+        setVideoUrl(data.url);
+        if (eventSource) {
+          eventSource.close();
+        }
+      }
     } catch (error) {
       console.error('Erro ao criar vídeo:', error);
+    } finally {
       setIsLoading(false);
-      if (eventSource) {
-        eventSource.close();
-        setEventSource(null);
-      }
     }
   };
 
@@ -67,13 +70,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       {videoUrl && (
         <VideoPopup
           videoUrl={videoUrl}
-          onClose={() => {
-            setVideoUrl(null);
-            if (eventSource) {
-              eventSource.close();
-              setEventSource(null);
-            }
-          }}
+          onClose={() => setVideoUrl(null)}
         />
       )}
     </div>
@@ -87,4 +84,4 @@ const StyledButton = styled(Button)`
   &:hover {
     background: ${props => props.disabled ? '#ccc' : '#27ae60'};
   }
-`;
+`; 

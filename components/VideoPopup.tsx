@@ -6,18 +6,34 @@ interface VideoPopupProps {
   onClose: () => void;
 }
 
-const Overlay = styled.div<{ isOpen: boolean }>`
+export default function VideoPopup({ videoUrl, onClose }: VideoPopupProps) {
+  return (
+    <Overlay>
+      <PopupContent>
+        <CloseButton onClick={onClose}>✕</CloseButton>
+        <Title>Seu vídeo está pronto!</Title>
+        <VideoContainer>
+          <Video src={videoUrl} controls />
+        </VideoContainer>
+        <DownloadButton href={videoUrl} download>
+          Download
+        </DownloadButton>
+      </PopupContent>
+    </Overlay>
+  );
+}
+
+const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
-  display: ${props => props.isOpen ? 'flex' : 'none'};
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(5px);
 `;
 
 const PopupContent = styled.div`
@@ -25,14 +41,24 @@ const PopupContent = styled.div`
   padding: 20px;
   border-radius: 12px;
   position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 90%;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+`;
+
+const VideoContainer = styled.div`
+  margin-bottom: 20px;
+  aspect-ratio: 16/9;
 `;
 
 const Video = styled.video`
-  max-width: 100%;
-  max-height: 80vh;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 `;
 
@@ -53,38 +79,15 @@ const CloseButton = styled.button`
   }
 `;
 
-export default function VideoPopup({ videoUrl, onClose }: VideoPopupProps) {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Seu vídeo está pronto!</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            ✕
-          </button>
-        </div>
-        
-        <div className="aspect-video mb-4">
-          <video
-            src={videoUrl}
-            controls
-            className="w-full h-full rounded"
-          />
-        </div>
-        
-        <div className="flex justify-end">
-          <a
-            href={videoUrl}
-            download
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Download
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-} 
+const DownloadButton = styled.a`
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2ecc71;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  
+  &:hover {
+    background: #27ae60;
+  }
+`; 

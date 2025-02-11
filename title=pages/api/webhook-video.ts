@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import db from './lib/db';  // Atualize o caminho
-
-// Variável global para armazenar a última URL do vídeo
-let lastVideoUrl: string | null = null;
+import db from '@/lib/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -19,10 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Insere o novo registro com a URL do vídeo
     const insert = db.prepare(`INSERT INTO video_status (result_url) VALUES (?)`);
     const info = insert.run(result_url);
-    console.log('✅ Registro inserido:', info);
-
-    // Salva a URL do vídeo na variável global
-    lastVideoUrl = result_url;
 
     return res.status(200).json({ 
       success: true,
@@ -32,7 +25,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error('❌ Erro no webhook:', error);
     return res.status(500).json({ error: 'Erro interno' });
   }
-}
-
-// Exporta a variável global para ser acessada por outros endpoints
-export { lastVideoUrl }; 
+} 
