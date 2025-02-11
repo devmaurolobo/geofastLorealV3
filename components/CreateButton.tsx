@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
 import VideoPopup from './VideoPopup';
 
-const Button = styled.button`
+const StyledButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -12,6 +12,13 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: block;
+  margin-left: auto;
+  background: ${props => props.disabled ? '#ccc' : '#2ecc71'};
+
+  &:hover {
+    background: ${props => props.disabled ? '#ccc' : '#27ae60'};
+  }
 
   &:disabled {
     cursor: not-allowed;
@@ -75,9 +82,9 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
 
   return (
     <div>
-      <Button onClick={handleCreate} disabled={isLoading}>
+      <StyledButton onClick={handleCreate} disabled={isLoading}>
         {isLoading ? 'Processando...' : 'Criar Vídeo'}
-      </Button>
+      </StyledButton>
 
       {videoUrl && (
         <VideoPopup
