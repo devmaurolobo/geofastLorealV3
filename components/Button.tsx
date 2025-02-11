@@ -1,13 +1,17 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
-  background: #0065eb;
-  border-radius: 5px;
-  color: #fff;
+  border-radius: 4px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  color: white;
   cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 `;
