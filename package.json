@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
