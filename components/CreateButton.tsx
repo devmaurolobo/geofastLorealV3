@@ -18,25 +18,36 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [videoData, setVideoData] = useState<VideoData | null>(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // Configurar WebSocket ou SSE para receber atualizações
-  useEffect(() => {
-    const eventSource = new EventSource('/api/video-status');
-
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.status === 'completed') {
-        setVideoData(data);
-        setShowPopup(true);
-        eventSource.close();
+  // Função para verificar o status do vídeo
+  const checkVideoStatus = async () => {
+    try {
+      const response = await fetch('/api/check-video-status');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      
+      if (data.success && data.video) {
+        setVideoData(data.video);
+        setShowPopup(true);
+        if (pollingInterval) {
+          clearInterval(pollingInterval);
+          setPollingInterval(null);
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao verificar status:', error);
+      // Parar o polling em caso de erro persistente
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+        setPollingInterval(null);
+      }
+    }
+  };
 
-    return () => {
-      eventSource.close();
-    };
-  }, []);
-
+  // Função para criar o vídeo
   const handleCreate = async () => {
     if (isLoading) return;
     
@@ -49,26 +60,58 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
         },
         body: JSON.stringify({
           source: props.preview.getSource(),
-          webhookUrl: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/webhook` // URL do webhook
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      console.log('Resposta da API:', data); // Debug log para ver a estrutura exata
+
+      // Verifica a estrutura exata do retorno da API
+      const videoUrl = data.url || data.videoUrl || data.video?.url;
+      console.log('URL do vídeo:', videoUrl); // Debug log da URL
+
+      if (videoUrl) {
+        setVideoData({
+          id: data.id || '',
+          status: 'completed',
+          url: videoUrl
+        });
+        setShowPopup(true);
       }
 
-      // Aqui apenas iniciamos o processo, o status virá pelo webhook
-      const data = await response.json();
-      console.log('Vídeo em processamento:', data);
-
     } catch (error) {
-      console.error('Erro ao criar vídeo:', error);
-      setShowPopup(false);
-      setVideoData(null);
+      console.error('Erro:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  // Limpa o intervalo quando o componente é desmontado
+  useEffect(() => {
+    return () => {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+    };
+  }, [pollingInterval]);
+
+  if (isLoading) {
+    return <Component style={{ background: '#e67e22' }}>Rendering...</Component>;
+  }
+
+  if (videoData) {
+    return (
+      <Component
+        style={{ background: '#2ecc71' }}
+        onClick={() => {
+          window.open(videoData.url, '_blank');
+          setVideoData(null);
+        }}
+      >
+        Download
+      </Component>
+    );
+  }
 
   return (
     <div>
@@ -82,7 +125,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
 
       {showPopup && videoData && (
         <VideoPopup
-          videoUrl={videoData.url} 
+          url={videoData.url}
           onClose={() => {
             setShowPopup(false);
             setVideoData(null);
