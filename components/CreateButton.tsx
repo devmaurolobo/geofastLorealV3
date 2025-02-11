@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
 import { Button } from './Button';
 import VideoPopup from './VideoPopup';
+
+interface CreateButtonProps {
+  preview: Preview;
+}
 
 interface VideoData {
   id: string;
@@ -10,48 +14,15 @@ interface VideoData {
   url: string;
 }
 
-interface CreateButtonProps {
-  preview: Preview;
-}
-
 export const CreateButton: React.FC<CreateButtonProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [videoData, setVideoData] = useState<VideoData | null>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // Função para verificar o status do vídeo
-  const checkVideoStatus = async () => {
-    try {
-      const response = await fetch('/api/check-video-status');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      
-      if (data.success && data.video) {
-        setVideoData(data.video);
-        setShowPopup(true);
-        if (pollingInterval) {
-          clearInterval(pollingInterval);
-          setPollingInterval(null);
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao verificar status:', error);
-      // Parar o polling em caso de erro persistente
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-        setPollingInterval(null);
-      }
-    }
-  };
-
-  // Função para criar o vídeo
   const handleCreate = async () => {
     if (isLoading) return;
-    
     setIsLoading(true);
+
     try {
       const response = await fetch('/api/videos', {
         method: 'POST',
@@ -60,7 +31,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       });
 
       const data = await response.json();
-      console.log('Dados recebidos:', data);
+      console.log('Resposta da API:', data);
 
       if (data.url) {
         setVideoData({
@@ -71,47 +42,39 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
         setShowPopup(true);
       }
     } catch (error) {
-      console.error('Erro:', error);
+      console.error('Erro ao criar vídeo:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Limpa o intervalo quando o componente é desmontado
-  useEffect(() => {
-    return () => {
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-      }
-    };
-  }, [pollingInterval]);
-
-  if (isLoading) {
-    return <Component style={{ background: '#e67e22' }}>Rendering...</Component>;
-  }
-
-  if (videoData) {
-    return (
-      <Component
-        style={{ background: '#2ecc71' }}
-        onClick={() => {
-          window.open(videoData.url, '_blank');
-          setVideoData(null);
-        }}
-      >
-        Download
-      </Component>
-    );
-  }
-
   return (
     <div>
-    
+      <StyledButton 
+        onClick={handleCreate}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Processando...' : 'Criar Vídeo'}
+      </StyledButton>
+
+      {showPopup && videoData && (
+        <VideoPopup
+          videoUrl={videoData.url}
+          onClose={() => {
+            setShowPopup(false);
+            setVideoData(null);
+          }}
+        />
+      )}
     </div>
   );
 };
 
-const Component = styled(Button)`
+const StyledButton = styled(Button)`
   display: block;
   margin-left: auto;
+  background: ${props => props.disabled ? '#ccc' : '#2ecc71'};
+  &:hover {
+    background: ${props => props.disabled ? '#ccc' : '#27ae60'};
+  }
 `;
