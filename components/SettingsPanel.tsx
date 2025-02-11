@@ -20,8 +20,6 @@ interface Oferta {
   preco: number;
   precoOriginal: number;
   desconto: number;
-  avaliacoes: number;
-  nota: number;
 }
 
 // Adicionar componentes styled que estavam faltando
@@ -133,26 +131,26 @@ const ofertas: Oferta[] = [
   {
     id: 1,
     nome: 'Kit L\'Oréal Paris Protetor Solar Corporal FPS 70',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217133639x885670586333968000/IMG1.jpg?_gl=1*1uq7nl1*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217133639x885670586333968000/IMG1.jpg',
     preco: 65.99,
     precoOriginal: 87.99,
-    desconto: 25,
+    desconto: 25
   },
   {
     id: 2,
     nome: 'Água Micelar L\'Oréal Paris 5 em 1 200ml',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217443226x196366953858600400/IMG2.jpg?_gl=1*s465om*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/agua-micelar.jpg',
     preco: 16.49,
     precoOriginal: 31.99,
-    desconto: 48,
+    desconto: 48
   },
   {
     id: 3,
     nome: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217451719x841436750508022000/IMG3.jpg?_gl=1*s465om*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkyMTcwMTIuNDQuMC4w',
+    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/oleo-elseve.jpg',
     preco: 54.99,
     precoOriginal: 54.99,
-  
+    desconto: 0
   }
 ];
 
@@ -324,8 +322,11 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <OfertasList>
           {ofertas.map((oferta) => (
             <OfertaCard key={oferta.id}>
+              {oferta.desconto > 0 && (
+                <DescontoBadge>{oferta.desconto}% OFF</DescontoBadge>
+              )}
               <OfertaImage src={oferta.imagem} alt={oferta.nome} />
-              <ItemName>{oferta.nome}</ItemName>
+              <OfertaTitle>{oferta.nome}</OfertaTitle>
               <PrecoContainer>
                 {oferta.desconto > 0 && (
                   <PrecoOriginal>R$ {oferta.precoOriginal.toFixed(2)}</PrecoOriginal>
@@ -466,12 +467,10 @@ const DescontoBadge = styled.div`
   font-weight: bold;
 `;
 
-const Avaliacoes = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
+const OfertaTitle = styled.h4`
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
 `;
 
