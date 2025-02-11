@@ -1,30 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
+import { Button } from './Button';  // Importa o novo componente Button
 import VideoPopup from './VideoPopup';
-
-const StyledButton = styled.button`
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: block;
-  margin-left: auto;
-  background: ${props => props.disabled ? '#ccc' : '#2ecc71'};
-
-  &:hover {
-    background: ${props => props.disabled ? '#ccc' : '#27ae60'};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-`;
 
 interface CreateButtonProps {
   preview: Preview;
@@ -82,9 +59,9 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
 
   return (
     <div>
-      <StyledButton onClick={handleCreate} disabled={isLoading}>
+      <Button onClick={handleCreate} disabled={isLoading}>
         {isLoading ? 'Processando...' : 'Criar Vídeo'}
-      </StyledButton>
+      </Button>
 
       {videoUrl && (
         <VideoPopup
