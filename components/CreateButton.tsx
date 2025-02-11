@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { Preview } from '@creatomate/preview';
 import { Button } from './Button';
 import VideoPopup from './VideoPopup';
-import { VideoData } from '../types/video';
+
+interface VideoData {
+  id: string;
+  status: string;
+  url: string;
+}
 
 interface CreateButtonProps {
   preview: Preview;
@@ -101,23 +106,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
 
   return (
     <div>
-      <Component
-        style={{ display: 'block', marginLeft: 'auto' }}
-        onClick={handleCreate}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Criando...' : 'Criar Vídeo'}
-      </Component>
-
-      {showPopup && videoData && (
-        <VideoPopup
-                  url={videoData.url}
-          onClose={() => {
-            setShowPopup(false);
-            setVideoData(null);
-          }}
-        />
-      )}
+    
     </div>
   );
 };
