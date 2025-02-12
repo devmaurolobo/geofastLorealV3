@@ -193,7 +193,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <ProductCarousel preview={props.preview} maxProducts={3} />
+        <ProductCarousel preview={props.preview} />
       </Group>
 
     </div>

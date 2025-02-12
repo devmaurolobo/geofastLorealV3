@@ -9,6 +9,7 @@ import { Preview } from '@creatomate/preview';
 // Interfaces
 interface ProductCarouselProps {
   preview: Preview;
+  maxProducts?: number;
 }
 
 interface Produto {
