@@ -24,17 +24,12 @@ const App: React.FC = () => {
     if (previewRef.current) {
       previewRef.current.dispose();
       previewRef.current = undefined;
-    }
+    };
 
-    // Initialize a preview com opções de configuração
-    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!, {
-      timelineHeight: 100, // Altura da timeline em pixels
-      timelineVisible: true, // Mantém a timeline visível
-      timeScale: 1.5, // Escala de tempo (aumentar esse valor deixa a timeline mais compacta)
-      scrubberHeight: 80, // Altura do scrubber
-    });
+    // Once the SDK is ready, load a template from our project    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!);
+    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!);
 
-    // Once the SDK is ready, load a template from our project
+
     preview.onReady = async () => {
       await preview.loadTemplate(process.env.NEXT_PUBLIC_TEMPLATE_ID!);
       setIsReady(true);
