@@ -22,12 +22,18 @@ interface Produto {
 }
 
 interface ProdutoSelecionado {
+  id: number;
   imagem: string;
   feature: string;
   titulo: string;
   subtitulo: string;
   precoReal: string;
   precoCentavos: string;
+}
+
+interface ProdutoCardProps {
+  selected?: boolean;
+  slotNumber?: number;
 }
 
 // Array de produtos
@@ -139,7 +145,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
 
   const updatePreviewProdutos = async (
     preview: Preview,
-    produto: Produto | null, 
+    produto: Produto | ProdutoSelecionado | null,
     index: number,
     modifications: Record<string, any>
   ) => {
@@ -241,6 +247,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
 
     try {
       const produtoSelecionado: ProdutoSelecionado = {
+        id: produto.id,
         imagem: produto.imagem,
         titulo: produto.titulo,
         subtitulo: produto.subtitulo,
@@ -417,7 +424,7 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const ProdutoCard = styled.div<{ selected?: boolean }>`
+const ProdutoCard = styled.div<ProdutoCardProps>`
   position: relative;
   padding: 20px;
   border-radius: 12px;
