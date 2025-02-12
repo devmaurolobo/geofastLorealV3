@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
 import { CreateButton } from './CreateButton';
+import { ProductCarousel } from './ProductCarousel';
 
 
 // Adicionar interface SettingsPanelProps
@@ -18,6 +19,12 @@ interface Oferta {
   preco: number;
   precoOriginal: number;
   desconto: number;
+}
+
+// Interface para os vídeos
+interface VideoUrls {
+  cabeca: string;
+  assinatura: string;
 }
 
 // Adicionar componentes styled que estavam faltando
@@ -62,230 +69,111 @@ const setPropertyValue = async (
   }
 };
 
-const ensureElementVisibility = async (
-  preview: Preview,
-  elementName: string,
-  duration: number
-) => {
-  const element = preview.getElements().find((element) => element.source.name === elementName);
-  if (element) {
-    const modifications = { [`${elementName}.visible`]: true };
-    await preview.setModifications(modifications);
-  }
-};
-
-const getTrilhaAudio = (segmento: string): string | null => {
-  const trilhas = {
-    'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403422217x222977654070197540/techTrilha.wav?_gl=1*1lwhtit*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4MjAuMzguMC4w',
-    'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403441070x854727213096365400/eduTrilha.wav?_gl=1*rskbrr*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4NDUuMTMuMC4w',
-    'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403283222x421064399760021600/carroTrilha.wav?_gl=1*1yg3gp5*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4NjYuNjAuMC4w',
-    'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403357442x124423842570440700/modaTrilha.wav?_gl=1*1oh0adk*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk5NDguNDkuMC4w',
-    'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737403401809x955901487110082800/supTrilha.wav?_gl=1*1m3ieed*_gcl_au*MTYzNjk0MTYyOS4xNzM5MTg5ODEx*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTE2NTM1Mi4xOC4xLjE3MzkxODk4MjcuMzEuMC4w'
-  };
-  
-  return trilhas[segmento as keyof typeof trilhas] || null;
-};
-
 // Definição das celebridades
 const celebridades = [
   {
     id: 1,
-    nome: 'Rodrigo Faro',
-    foto: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737467575738x638870328259317400/RODRIGO%20FARO.png'
+    nome: 'AJ',
+    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
   },
   {
     id: 2,
-    nome: 'Juliana Paes',
-    foto: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737469547544x890918897730985900/JULIANA%20PAES.png'
+    nome: 'CD',
+    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
   },
   {
     id: 3,
-    nome: 'Vitória Strada',
-    foto: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737467187142x432441187940656000/vitoria%20strada.png'
+    nome: 'CL',
+    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
+  },
+  {
+    id: 4,
+    nome: 'PB',
+    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
   }
 ];
 
-// Definição dos segmentos
-const segmentos = [
-  {
-    id: 1,
-    option: 'Supermercado',
-    image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470359857x417210886713010000/SUPERMERCADOTHUMB.png'
+// Objeto com todos os vídeos organizados
+const videosConfig = {
+  'AJ': {
+    'Tecnologia': {
+      cabeca: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320563578x540353553171945660/cabLorealAJ.mp4?_gl=1*mdxrlk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA1NTAuMTUuMC4w',
+      assinatura: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320548620x855688049929861800/assLorealAJ.mp4?_gl=1*ts7jzz*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA1MTcuNDguMC4'
+    }
   },
-  {
-    id: 2,
-    option: 'Moda',
-    image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470374242x782265742169210800/MODATHUMB.png'
+  'CD': {
+    'Tecnologia': {
+      cabeca: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320823340x314677354195926460/cabLorealCD.mp4?_gl=1*cfiv8d*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA4NzkuNjAuMC4w',
+      assinatura: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320808780x869602339937597800/assLorealCD.mp4?_gl=1*1lt7h17*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA1ODkuNjAuMC4w'
+    }
   },
-  {
-    id: 3,
-    option: 'Carros',
-    image: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737470386839x892623108604885200/CARROTHUMB.png'
+  'CL': {
+    'Tecnologia': {
+      cabeca: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320851138x537274955092655900/cabLorealCL.mp4?_gl=1*1mevnss*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA5MzIuNy4wLjA.',
+      assinatura: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320839948x329495788447920000/assLorealCL.mp4?_gl=1*e5qv9y*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA5MDguMzEuMC4w'
+    }
+  },
+  'PB': {
+    'Tecnologia': {
+      cabeca: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320876224x254089496207782200/cabLorealPB.mp4?_gl=1*1aeewpj*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA5NjAuNDUuMC4w',
+      assinatura: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739320864359x250086892021992740/assLorealPB.mp4?_gl=1*p24dnc*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMjA5NDUuNjAuMC4w'
+    }
   }
-];
-
-// Adicionar array de ofertas
-const ofertas: Oferta[] = [
-  {
-    id: 1,
-    nome: 'Kit L\'Oréal Paris Protetor Solar Corporal FPS 70',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1739217133639x885670586333968000/IMG1.jpg',
-    preco: 65.99,
-    precoOriginal: 87.99,
-    desconto: 25
-  },
-  {
-    id: 2,
-    nome: 'Água Micelar L\'Oréal Paris 5 em 1 200ml',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/agua-micelar.jpg',
-    preco: 16.49,
-    precoOriginal: 31.99,
-    desconto: 48
-  },
-  {
-    id: 3,
-    nome: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
-    imagem: 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/oleo-elseve.jpg',
-    preco: 54.99,
-    precoOriginal: 54.99,
-    desconto: 0
-  }
-];
+} as const;
 
 export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   const modificationsRef = useRef<Record<string, any>>({});
   const [selectedCelebridade, setSelectedCelebridade] = useState<string>('');
-  const [selectedSegmento, setSelectedSegmento] = useState<string>('');
+  const [selectedSegmento, setSelectedSegmento] = useState<string>('Tecnologia'); // Valor padrão
+  const [selectedVideos, setSelectedVideos] = useState<VideoUrls | null>(null);
 
   const findElement = (elementName: string) => {
     return props.preview.getElements().find((element: any) => element.source.name === elementName);
   };
 
-  // Função getMcabecaVideo movida para dentro do componente
-  const getMcabecaVideo = (celebridade: string, segmento: string): string | null => {
-    const videos = {
-      'Rodrigo Faro': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400848848x372390175366407600/techCabFr.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400118637x885973244047698400/eduCabFr.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399724946x749724726791223700/carroCabFr.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477855944x861550925987752100/modaCabFr%20%281%29.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477958145x974964175820362900/supCabFr%20%281%29.mp4'
-      },
-      'Juliana Paes': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400817038x671140396871675400/techCabJp.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400091721x528111862706756700/eduCabJp.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399701763x618959377382234000/carroCabJp.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477878297x810339304993771000/modaCabJp%20%281%29.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477939467x731690991169157800/supCabJp%20%281%29.mp4'
-      },
-      'Vitória Strada': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400781348x885233334405119500/techCabVs.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400070194x107201734906771760/eduCabVs.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737463658073x685485920054953500/carroCabVs.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477900919x562753402732993900/modaCabVs%20%282%29.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400597835x875016790955537900/supCabVs.mp4'
-      }
-    };
-
-    return videos[celebridade as keyof typeof videos]?.[segmento as keyof (typeof videos)[keyof typeof videos]] || null;
+  // Função para filtrar e obter os vídeos
+  const getVideos = (celebridade: string): VideoUrls | null => {
+    const videos = videosConfig[celebridade as keyof typeof videosConfig]?.['Tecnologia'];
+    return videos || null;
   };
 
-  const getMassinaturaVideo = (celebridade: string, segmento: string): string | null => {
-    const videos = {
-      'Rodrigo Faro': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400931700x582416702025149400/techAssinaFr.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400044932x223670292783067400/eduAssinaFr.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399779609x742226324915374500/carroAssinaFr.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400547915x156651308633814600/modaAssinaFr.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400724065x873206400284644900/supAssinaFr.mp4'
-      },
-      'Juliana Paes': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400903414x912171490243848100/techAssinaJp.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400028235x661597450319327000/eduAssinaJp.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399763838x601690833794871200/carroAssinaJp.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400526276x442065017713140860/modaAssinaJp.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737478921056x497965842887301060/supAssinaJp.mp4'
-      },
-      'Vitória Strada': {
-        'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400878098x486064293906471800/techAssinaVs.mp4',
-        'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399826147x120918152965874500/eduAssinaVs.mp4',
-        'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737399748354x637825058388489500/carroAssinaVs.mp4',
-        'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737400493413x536744832380690050/modaAssinaVs.mp4',
-        'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737477988604x893604884965848700/supAssinaVs%20%281%29.mp4'
-      }
+  // Função para atualizar o preview
+  const updatePreview = async (videos: VideoUrls) => {
+    const elements = {
+      cabeca: findElement('cabeca'),
+      assinatura: findElement('assinatura')
     };
 
-    return videos[celebridade as keyof typeof videos]?.[segmento as keyof (typeof videos)[keyof typeof videos]] || null;
-  };
-
-  const handleSelection = async (celebridade: string, segmento: string) => {
-    // Atualiza o vídeo da cabeça
-    const cabecaUrl = getMcabecaVideo(celebridade, segmento);
-    if (cabecaUrl) {
-      const cabecaElement = findElement('cabeca');
-      if (cabecaElement) {
-        await setPropertyValue(
-          props.preview,
-          cabecaElement.source.name,
-          cabecaUrl,
-          modificationsRef.current
-        );
-      }
+    // Atualiza cabeça
+    if (elements.cabeca) {
+      await setPropertyValue(
+        props.preview,
+        elements.cabeca.source.name,
+        videos.cabeca,
+        modificationsRef.current
+      );
     }
 
-    // Atualiza o vídeo do miolo
-    const mioloUrl = getMioloVideo(segmento);
-    if (mioloUrl) {
-      const mioloElement = findElement('miolo');
-      if (mioloElement) {
-        await setPropertyValue(
-          props.preview,
-          mioloElement.source.name,
-          mioloUrl,
-          modificationsRef.current
-        );
-      }
-    }
-
-    // Atualiza o vídeo da assinatura
-    const assinaturaUrl = getMassinaturaVideo(celebridade, segmento);
-    if (assinaturaUrl) {
-      const assinaturaElement = findElement('assinatura');
-      if (assinaturaElement) {
-        await setPropertyValue(
-          props.preview,
-          assinaturaElement.source.name,
-          assinaturaUrl,
-          modificationsRef.current
-        );
-      }
-    }
-
-    // Atualiza a trilha sonora
-    const trilhaUrl = getTrilhaAudio(segmento);
-    if (trilhaUrl) {
-      const trilhaElement = findElement('trilha');
-      if (trilhaElement) {
-        await setPropertyValue(
-          props.preview,
-          trilhaElement.source.name,
-          trilhaUrl,
-          modificationsRef.current
-        );
-      }
+    // Atualiza assinatura
+    if (elements.assinatura) {
+      await setPropertyValue(
+        props.preview,
+        elements.assinatura.source.name,
+        videos.assinatura,
+        modificationsRef.current
+      );
     }
   };
 
-  const getMioloVideo = (segmento: string): string | null => {
-    const videos = {
-      'Tecnologia': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737401585784x132846469528500320/techMiolo1.mp4',
-      'Educação': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737401142991x769589510301051000/eduMiolo1.mp4',
-      'Carros': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737401043927x344956645103745150/carroMiolo1.mp4',
-      'Moda': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737478051902x808693933761051300/modaMiolo1%20%281%29.mp4',
-      'Supermercado': 'https://1bcfd2ed3e9278b4c4612858fdf1801c.cdn.bubble.io/f1737478103006x950931566599126000/supMiolo1%20%281%29.mp4'
-    };
-  
-    return videos[segmento as keyof typeof videos] || null;
+  // Handler para seleção de celebridade
+  const handleCelebridadeSelect = async (celebridade: string) => {
+    setSelectedCelebridade(celebridade);
+    const videos = getVideos(celebridade);
+    
+    if (videos) {
+      setSelectedVideos(videos);
+      await updatePreview(videos);
+    }
   };
 
   return (
@@ -300,12 +188,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
             <ItemCard 
               key={celeb.id}
               selected={selectedCelebridade === celeb.nome}
-              onClick={() => {
-                setSelectedCelebridade(celeb.nome);
-                if (selectedSegmento) {
-                  handleSelection(celeb.nome, selectedSegmento);
-                }
-              }}
+              onClick={() => handleCelebridadeSelect(celeb.nome)}
             >
               <CelebrityImage src={celeb.foto} alt={celeb.nome} />
               <ItemName>{celeb.nome}</ItemName>
@@ -317,47 +200,9 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <OfertasList>
-          {ofertas.map((oferta) => (
-            <OfertaCard key={oferta.id}>
-              {oferta.desconto > 0 && (
-                <DescontoBadge>{oferta.desconto}% OFF</DescontoBadge>
-              )}
-              <OfertaImage src={oferta.imagem} alt={oferta.nome} />
-              <OfertaTitle>{oferta.nome}</OfertaTitle>
-              <PrecoContainer>
-                {oferta.desconto > 0 && (
-                  <PrecoOriginal>R$ {oferta.precoOriginal.toFixed(2)}</PrecoOriginal>
-                )}
-                <PrecoAtual>R$ {oferta.preco.toFixed(2)}</PrecoAtual>
-              </PrecoContainer>
-            </OfertaCard>
-          ))}
-        </OfertasList>
+        <ProductCarousel preview={props.preview} maxProducts={3} />
       </Group>
-      {/* Lista de Segmentos */}
-      <Group>
-        <GroupTitle>Selecione a Assinatura</GroupTitle>
-        <SegmentList>
-          {segmentos.map((seg) => (
-            <ItemCard 
-              key={seg.id}
-              selected={selectedSegmento === seg.option}
-              onClick={() => {
-                setSelectedSegmento(seg.option);
-                if (selectedCelebridade) {
-                  handleSelection(selectedCelebridade, seg.option);
-                }
-              }}
-            >
-              <SegmentImage src={seg.image} alt={seg.option} />
-              <ItemName>{seg.option}</ItemName>
-            </ItemCard>
-          ))}
-        </SegmentList>
-      </Group>
-
-      
+ 
     </div>
   );
 };
@@ -370,13 +215,6 @@ const CelebrityList = styled.div`
   margin-top: 15px;
 `;
 
-const SegmentList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  height: 240px;
-  gap: 15px;
-  margin-top: 15px;
-`;
 
 const ItemCard = styled.div<{ selected?: boolean }>`
   display: flex;
@@ -401,74 +239,5 @@ const CelebrityImage = styled.img`
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 8px;
-`;
-
-const SegmentImage = styled.img`
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 8px;
-`;
-
-// Adicionar novos componentes styled
-const OfertasList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 15px;
-`;
-
-const OfertaCard = styled(ItemCard)`
-  position: relative;
-  padding: 15px;
-  width: 240px;
-  height: 260
-  px;
-`;
-
-const OfertaImage = styled.img`
-  width: 100%;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 10px;
-`;
-
-const PrecoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-`;
-
-const PrecoOriginal = styled.span`
-  text-decoration: line-through;
-  color: #999;
-  font-size: 14px;
-`;
-
-const PrecoAtual = styled.span`
-  font-size: 20px;
-  font-weight: bold;
-  color: #0066cc;
-`;
-
-const DescontoBadge = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ff4444;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-`;
-
-const OfertaTitle = styled.h4`
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 5px;
 `;
 

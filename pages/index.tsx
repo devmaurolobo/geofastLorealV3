@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { ProductSelector } from '../components/ProductSelector';
 
 const App = dynamic(() => import('../components/App'), { ssr: false });
 
@@ -14,7 +13,6 @@ export default function Home() {
 
       <App />
       <h2>Ofertas Disponíveis</h2>
-      <ProductSelector />
     </div>
   );
 }

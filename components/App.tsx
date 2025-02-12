@@ -26,8 +26,13 @@ const App: React.FC = () => {
       previewRef.current = undefined;
     }
 
-    // Initialize a preview
-    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!);
+    // Initialize a preview com opções de configuração
+    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!, {
+      timelineHeight: 100, // Altura da timeline em pixels
+      timelineVisible: true, // Mantém a timeline visível
+      timeScale: 1.5, // Escala de tempo (aumentar esse valor deixa a timeline mais compacta)
+      scrubberHeight: 80, // Altura do scrubber
+    });
 
     // Once the SDK is ready, load a template from our project
     preview.onReady = async () => {
@@ -63,7 +68,7 @@ const App: React.FC = () => {
           }}
           style={{
             height:
-              videoAspectRatio && windowWidth && windowWidth < 768 ? window.innerWidth / videoAspectRatio : undefined,
+              videoAspectRatio && windowWidth && windowWidth <1500? window.innerWidth / videoAspectRatio : undefined,
           }}
         />
       </Wrapper>
@@ -108,23 +113,23 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 80%;
-  max-width: 720px;
-  max-height: 450px;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 700px;
   margin: auto;
 `;
 
 const Panel = styled.div`
-  flex: 1;\
-  height:70%;
+  flex: 1;
+  height: 85%;
   position: relative;
-  background:rgb(238, 238, 238);
+  background: rgb(238, 238, 238);
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;
 
   @media (min-width: 768px) {
     flex: initial;
     margin: 50px;
-    width: 800px;
+    width: 1000px;
     border-radius: 15px;
   }
 `;

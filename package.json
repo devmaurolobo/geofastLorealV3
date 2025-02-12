@@ -17,10 +17,12 @@
     "@types/react-dom": "^18.0.10",
     "@types/sqlite3": "^3.1.11",
     "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^10.0.0",
     "prettier": "^2.8.1"
   },
   "dependencies": {
     "@creatomate/preview": "^1.5.0",
+    "@types/react-slick": "^0.23.13",
     "@vercel/kv": "^3.0.0",
     "better-sqlite3": "^11.8.1",
     "creatomate": "^1.1.0",
@@ -32,6 +34,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "styled-components": "^5.3.6",

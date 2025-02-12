@@ -13,7 +13,7 @@ export default function VideoPopup({ videoUrl, onClose }: VideoPopupProps) {
         <CloseButton onClick={onClose}>✕</CloseButton>
         <Title>Seu vídeo está pronto!</Title>
         <VideoContainer>
-          <Video src={videoUrl} controls />
+          <VideoFrame src={videoUrl} />
         </VideoContainer>
         <DownloadButton href={videoUrl} download>
           Download
@@ -52,13 +52,20 @@ const Title = styled.h2`
 `;
 
 const VideoContainer = styled.div`
-  margin-bottom: 20px;
-  aspect-ratio: 16/9;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 90vh;
+  max-width: 800px;
+  z-index: 1000;
 `;
 
-const Video = styled.video`
+const VideoFrame = styled.iframe`
   width: 100%;
   height: 100%;
+  border: none;
   border-radius: 8px;
 `;
 
