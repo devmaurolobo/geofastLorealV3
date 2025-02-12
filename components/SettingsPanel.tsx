@@ -12,14 +12,7 @@ interface SettingsPanelProps {
 }
 
 // Adicionar interface para ofertas
-interface Oferta {
-  id: number;
-  nome: string;
-  imagem: string;
-  preco: number;
-  precoOriginal: number;
-  desconto: number;
-}
+
 
 // Interface para os vídeos
 interface VideoUrls {
@@ -211,7 +204,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 const CelebrityList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
+  gap: 30px;
   margin-top: 15px;
 `;
 
@@ -220,7 +213,7 @@ const ItemCard = styled.div<{ selected?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
+  padding: 20px;
   border-radius: 12px;
   border: 2px solid ${props => props.selected ? '#0066cc' : '#ddd'};
   cursor: pointer;

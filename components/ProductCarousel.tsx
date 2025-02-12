@@ -12,13 +12,15 @@ interface ProductCarouselProps {
 
 interface Produto {
   id: number;
-  produto: string;
+  imagem: string;
   titulo: string;
   subtitulo: string;
+  feature: string;
 }
 
 interface ProdutoSelecionado {
   imagem: string;
+  feature: string;
   titulo: string;
   subtitulo: string;
   precoReal: string;
@@ -29,124 +31,201 @@ interface ProdutoSelecionado {
 const produtos: Produto[] = [
   {
     id: 1,
-    titulo: 'Kit L\'Oréal Paris Protetor Solar Corporal FPS 70',
-    subtitulo: 'Kit Protetor Solar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta1.png?alt=media&token=235e5701-54a8-4ac7-aadb-f716d30b475d.jpg',
+    titulo: 'Protetor Solar Facial',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Protetor Solar Expertise Antirrugas Com Cor FPS 60',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337496524x771520678743958500/oferta1.png?_gl=1*ll1ygi*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 2,
     titulo: 'Água Micelar L\'Oréal Paris 5 em 1 200ml',
-    subtitulo: 'Água Micelar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta2.png?alt=media&token=791ef69c-b423-413a-bf5a-1ca61763236f.jpg',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Solução de Limpeza 5 em 1 400ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337501494x571288350261434100/oferta2.png?_gl=1*d3bvp9*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 3,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml3',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta3.png?alt=media&token=4580949b-2024-41c6-b964-f3ae8e09744a.jpg',
+    titulo: 'Óleo Extraordinário',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Tratamento Sublime Reconstrutor 100ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337506674x207754128235593250/oferta3.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 4,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml4',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta4.png?alt=media&token=e00d75af-03e4-4241-8851-4d720761c644.jpg',
+    titulo: 'Protetor Solar Facial',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Protetor Solar Expertise Antirrugas Com Cor FPS 60',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337512240x775390511035061400/oferta4.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 5,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml5',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta5.png?alt=media&token=0930a758-b126-45b0-b017-7f66cd1ab5c4.jpg',
+    titulo: 'Tinta de Cabelo',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Casting Creme Gloss 400 Castanho Natural',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337517986x598654082347327400/oferta5.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 6,
     titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml6',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta6.png?alt=media&token=b101d41a-b59c-4f80-84e3-0b043ae99560.jpg',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337525020x337669568332362940/oferta6.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 7,
     titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml7',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta7.png?alt=media&token=9adfd991-c0eb-4251-aef7-0cf563eba3d6.jpg',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337530198x481989571846889860/oferta7.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 8,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml8',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta8.png?alt=media&token=900015ac-2cb1-446a-99fa-55aef1bf7970.jpg',
+    titulo: ' Protetor Solar Facial',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Protetor Solar Expertise Antioleosidade FPS 60 40g',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337534944x893607253015382000/oferta8.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 9,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml9',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta9.png?alt=media&token=363e356c-bb3c-42f3-a6ca-06f9594ff402.jpg',
+    titulo: 'Óleo Extraordinário',
+    subtitulo: "L'Oréal Paris", 
+    feature: 'Tratamento Sublime Reconstrutor 100ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337539978x638378810115613200/oferta9.png?_gl=1*1ce7asm*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   },
   {
     id: 10,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml10',
-    subtitulo: 'Óleo Capilar',
-    imagem: 'https://firebasestorage.googleapis.com/v0/b/orbita-89c83.firebasestorage.app/o/pngOfertas%2Foferta10.png?alt=media&token=2c4f6f34-05e1-4e58-a9f1-0df081e2e159.jpg',
+    titulo: 'Kit Elseve Pure',
+    subtitulo: "L'Oréal Paris",
+    feature: 'Shampoo Hialurônico 375ml + Condicionador 170ml',
+    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337544656x185974454250747100/oferta10.png?_gl=1*1ce7asm*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
   }
 ];
 
 export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => {
   const [produtosSelecionados, setProdutosSelecionados] = useState<ProdutoSelecionado[]>([]);
 
+  // Definindo a função findElement
+  const findElement = (elementName: string) => {
+    return preview.getElements().find((element: any) => element.source.name === elementName);
+  };
+
   const isProdutoSelecionado = (produto: Produto) => {
     return produtosSelecionados.some(p => p.titulo === produto.titulo);
+  };
+
+  const updatePreviewProdutos = async (
+    preview: Preview,
+    produto: Produto | null, 
+    index: number,
+    modifications: Record<string, any>
+  ) => {
+    console.log(`🔍 Atualizando produto ${index + 1}:`, produto);
+  
+    const slotNumber = index + 1;
+  
+    const elements = {
+      produto: findElement(`produto${slotNumber}`),
+      titulo: findElement(`titulo${slotNumber}`),
+      subtitulo: findElement(`subtitulo${slotNumber}`),
+      feature: findElement(`feature${slotNumber}`) // Adicionando feature
+    };
+
+    console.log(`📦 Elementos encontrados para slot ${slotNumber}:`, elements);
+
+    // Atualiza produto
+    if (elements.produto && produto) {
+      try {
+        modifications[`produto${slotNumber}.source`] = produto.imagem;
+        console.log(`🖼️ Produto ${slotNumber}:`, produto.imagem);
+      } catch (error) {
+        console.error(`❌ Erro ao carregar imagem do produto ${slotNumber}:`, error);
+        // Talvez usar uma imagem padrão/fallback
+        modifications[`produto${slotNumber}.source`] = 'URL_DE_IMAGEM_PADRAO';
+      }
+    }
+
+    // Atualiza título
+    if (elements.titulo) {
+      modifications[elements.titulo.source.name] = produto ? produto.titulo : '';
+      console.log(`📝 Título ${slotNumber}:`, produto ? produto.titulo : 'removido');
+    }
+
+    // Atualiza subtítulo
+    if (elements.subtitulo) {
+      modifications[elements.subtitulo.source.name] = produto ? produto.subtitulo : '';
+      console.log(`📄 Subtítulo ${slotNumber}:`, produto ? produto.subtitulo : 'removido');
+    }
+
+    // Atualiza feature
+    if (elements.feature) {
+      modifications[elements.feature.source.name] = produto ? produto.feature : '';
+      console.log(`📄 Feature ${slotNumber}:`, produto ? produto.feature : 'removido');
+    }
+
+    console.log(`📊 Modifications para slot ${slotNumber}:`, modifications);
   };
 
   const handleProdutoSelect = async (produto: Produto) => {
     console.log('🎯 handleProdutoSelect iniciado:', produto);
     
-    // Verifica se o produto já está selecionado
-    const isProdutoJaSelecionado = isProdutoSelecionado(produto);
-    console.log('🔍 Produto já selecionado?', isProdutoJaSelecionado);
-
-    if (isProdutoJaSelecionado) {
-      // Remove o produto da lista
-      const novosProdutos = produtosSelecionados.filter(p => p.titulo !== produto.titulo);
-      console.log('🗑️ Produtos após remoção:', novosProdutos);
+    if (isProdutoSelecionado(produto)) {
+      // Remove o produto e reorganiza os índices
+      const novosProdutos = produtosSelecionados
+        .filter(p => p.titulo !== produto.titulo);
+      
       setProdutosSelecionados(novosProdutos);
 
       try {
         const modifications: Record<string, any> = {};
         
-        // Atualiza as modificações com a nova lista
+        // Atualiza os produtos restantes mantendo a ordem 1, 2, 3
         novosProdutos.forEach((prod, index) => {
           updatePreviewProdutos(preview, prod, index, modifications);
         });
 
-        // Limpa as modificações dos slots que não são mais usados
+        // Limpa os slots não utilizados
         for (let i = novosProdutos.length; i < 3; i++) {
           updatePreviewProdutos(preview, null, i, modifications);
         }
 
         await preview.setModifications(modifications);
+        console.log('✅ Preview atualizado após remoção');
       } catch (error) {
         console.error('❌ Erro ao atualizar produtos:', error);
       }
       return;
     }
 
-    // Verifica se já atingiu o limite de 3 produtos
     if (produtosSelecionados.length >= 3) {
       console.log('⚠️ Limite de 3 produtos atingido!');
       alert('Você já selecionou o máximo de 3 produtos permitidos.');
       return;
     }
 
-    // Adiciona o novo produto
     try {
-      const novosProdutos = [...produtosSelecionados, produto];
-      setProdutosSelecionados(novosProdutos);
-
+      const produtoSelecionado: ProdutoSelecionado = {
+        imagem: produto.imagem,
+        titulo: produto.titulo,
+        subtitulo: produto.subtitulo,
+        precoReal: "0",
+        precoCentavos: "00",
+        feature: produto.feature // Adicionando Feature aqui
+      };
+    
+      // Adiciona o novo produto no próximo slot disponível
+      const novoIndex = produtosSelecionados.length; // 0, 1, ou 2
+      const novosProdutos = [...produtosSelecionados, produtoSelecionado];
+      
+      console.log(`➕ Adicionando produto ao slot ${novoIndex + 1}`);
+      
       const modifications: Record<string, any> = {};
       novosProdutos.forEach((prod, index) => {
         updatePreviewProdutos(preview, prod, index, modifications);
       });
 
+      setProdutosSelecionados(novosProdutos);
       await preview.setModifications(modifications);
+      console.log('✅ Preview atualizado após adição');
     } catch (error) {
       console.error('❌ Erro ao adicionar produto:', error);
     }
@@ -179,16 +258,23 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
       <CarouselSection>
         <SectionTitle>Ofertas Disponíveis</SectionTitle>
         <StyledSlider {...settings}>
-          {produtos.map((produto) => (
-            <ProdutoCard 
-              key={produto.id}
-              onClick={() => handleProdutoSelect(produto)}
-              selected={isProdutoSelecionado(produto)}
-            >
-              <ProdutoImage src={produto.imagem} alt={produto.titulo} />
-              <ProdutoTitulo>{produto.titulo}</ProdutoTitulo>
-            </ProdutoCard>
-          ))}
+          {produtos.map((produto) => {
+            const slotNumber = produtosSelecionados.findIndex(p => p.titulo === produto.titulo) + 1;
+            return (
+              <ProdutoCard 
+                key={produto.id}
+                onClick={() => handleProdutoSelect(produto)}
+                selected={isProdutoSelecionado(produto)}
+                slotNumber={slotNumber > 0 ? slotNumber : undefined}
+              >
+                <ProdutoImage src={produto.imagem} alt={produto.titulo} />
+                <ProdutoTitulo>{produto.titulo}</ProdutoTitulo>
+                <ProdutoInfo>
+                  {produto.subtitulo} • {produto.feature}
+                </ProdutoInfo>
+              </ProdutoCard>
+            );
+          })}
         </StyledSlider>
       </CarouselSection>
 
@@ -240,38 +326,61 @@ const SectionTitle = styled.h3`
 const StyledSlider = styled(Slider)`
   .slick-track {
     display: flex;
-    gap: 15px;
+    margin-left: 0;
+  }
+  
+  .slick-slide {
+    padding: 0 8px;
+    height: auto;
+    > div {
+      height: 100%;
+      display: flex;
+    }
+  }
+
+  .slick-list {
+    margin: 0 -8px;
   }
 `;
 
-const ProdutoCard = styled.div<{ selected?: boolean }>`
+const ProdutoCard = styled.div<{ selected?: boolean; slotNumber?: number }>`
   position: relative;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid ${props => props.selected ? '#4CAF50' : '#e0e0e0'};
   cursor: pointer;
-  transition: all 0.2s ease;
-  background: ${props => props.selected ? '#e6ffe6' : 'white'};
+  transition: all 0.3s ease;
+  background: ${props => props.selected ? '#f8fff8' : 'white'};
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin: 10px 0;
+  display: flex !important;
+  flex-direction: column;
+  height: 300px;
+  width: 100%;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   }
 
   &:after {
-    content: '✓';
+    content: '${props => props.selected ? props.slotNumber || '✓' : ''}';
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
+    top: -12px;
+    right: -12px;
+    width: 28px;
+    height: 28px;
     background: #4CAF50;
     color: white;
     border-radius: 50%;
     display: ${props => props.selected ? 'flex' : 'none'};
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1;
   }
 `;
 
@@ -279,7 +388,9 @@ const ProdutoImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: contain;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  padding: 10px;
+  transition: all 0.3s ease;
 `;
 
 const ProdutoImageSmall = styled.img`
@@ -290,8 +401,21 @@ const ProdutoImageSmall = styled.img`
 `;
 
 const ProdutoTitulo = styled.h4`
-  font-size: 14px;
-  margin: 0 0 10px;
+  font-size: 13px;
+  margin: 0 0 4px 0;
+  color: #333;
+  text-align: center;
+  line-height: 1.3;
+  font-weight: bold;
+`;
+
+const ProdutoInfo = styled.div`
+  text-align: center;
+  margin-top: auto;
+  padding: 0 5px;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.2;
 `;
 
 const PrecoContainer = styled.div`
@@ -327,10 +451,6 @@ const ProdutoSelecionadoCard = styled.div`
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 `;
 
-const ProdutoInfo = styled.div`
-  flex: 1;
-`;
-
 const ProdutoPreco = styled.div`
   font-size: 12px;
   color: #666;
@@ -344,3 +464,4 @@ const PrecoDestaque = styled.div`
 const PrecoCentavos = styled.span`
   font-size: 12px;
 `;
+
