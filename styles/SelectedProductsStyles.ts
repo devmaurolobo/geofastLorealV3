@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 export const PriceContainer = styled.div`
   display: flex;
   align-items: center;
