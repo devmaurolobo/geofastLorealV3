@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import { Preview } from '@creatomate/preview';
 
+
 // Interfaces
 interface ProductCarouselProps {
   preview: Preview;
@@ -358,28 +359,28 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
                     <ProdutoSelecionadoSubtitulo>{produto.subtitulo}</ProdutoSelecionadoSubtitulo>
                   </ProdutoSelecionadoTextos>
                   <PrecoContainer>
-                    <span>R$</span>
-                    <input
-                      type="text"
-                      value={produto.precoReal}
-                      onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
-                      style={{width: '50px'}}
-                    />
-                    <span>,</span>
-                    <input
-                      type="text"
-                      value={produto.precoCentavos}
-                      onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
-                      style={{width: '30px'}}
-                      maxLength={2}
-                    />
+                    <PrecoWrapper>
+                      <PrecoSymbol>R$</PrecoSymbol>
+                      <PrecoInput
+                        type="text"
+                        value={produto.precoReal}
+                        onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
+                      />
+                      <PrecoSeparator>,</PrecoSeparator>
+                      <CentavosInput
+                        type="text"
+                        value={produto.precoCentavos}
+                        onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
+                        maxLength={2}
+                      />
+                    </PrecoWrapper>
+                    <DeleteButton onClick={(e) => { e.stopPropagation(); handleProdutoSelect(produto); }}>
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                      </svg>
+                    </DeleteButton>
                   </PrecoContainer>
                 </ProdutoSelecionadoInfo>
-                <DeleteButton onClick={() => handleProdutoSelect(produto)}>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                  </svg>
-                </DeleteButton>
               </ProdutoSelecionadoCard>
             ))}
           </ProdutosSelecionadosList>
@@ -506,23 +507,84 @@ const ProdutoFeature = styled.div`
 
 const PrecoContainer = styled.div`
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-  min-width: 120px;
+  align-items: center;
   justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
 `;
 
-const PrecoDestaque = styled.div`
-  font-size: 18px;
-  color: #0066cc;
-  font-weight: bold;
+const PrecoWrapper = styled.div`
   display: flex;
-  align-items: baseline;
-  gap: 2px;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
 `;
 
-const PrecoCentavos = styled.span`
+const PrecoSymbol = styled.span`
+  color: #666;
   font-size: 14px;
+  font-weight: 500;
+  margin-right: 4px;
+`;
+
+const PrecoSeparator = styled.span`
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 2px;
+`;
+
+const PrecoInput = styled.input`
+  width: 32px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+`;
+
+const CentavosInput = styled(PrecoInput)`
+  width: 24px;
+`;
+
+const DeleteButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  opacity: 0.6;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: #666;
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    opacity: 1;
+    svg {
+      color: #ff4d4d;
+    }
+  }
 `;
 
 const ProdutosSelecionadosList = styled.div`
@@ -551,16 +613,22 @@ const ProdutoSelecionadoCard = styled.div`
 `;
 
 const SlotBadge = styled.div`
-  background-color: #4CAF50;
+  position: relative;
+  left: -60px;
+  width: 30px;
+  height: 30px;
+  background: #4CAF50;
   color: white;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 16px;
-`;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 10;
+`; 
 
 const ProdutoSelecionadoInfo = styled.div`
   flex: 1;
@@ -582,16 +650,4 @@ const ProdutoSelecionadoTitulo = styled.h5`
 const ProdutoSelecionadoSubtitulo = styled.div`
   font-size: 12px;
   color: #666;
-`;
-
-const DeleteButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin-left: auto;
-
-  &:hover {
-    color: #4CAF50;
-  }
 `;
