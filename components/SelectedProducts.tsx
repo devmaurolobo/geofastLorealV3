@@ -15,6 +15,39 @@ interface ProdutoSelecionado {
   precoCentavos: string;
 }
 
+const ProductCard = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  gap: 16px;
+`;
+
+const ProductImage = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+`;
+
+const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+`;
+
+const ProductName = styled.h4`
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
 export const SelectedProducts: React.FC<SelectedProductsProps> = ({ 
   produtos, 
   setProdutos, 
@@ -55,30 +88,29 @@ export const SelectedProducts: React.FC<SelectedProductsProps> = ({
       <h3>Produtos Selecionados ({produtos.length}/3)</h3>
       <div>
         {produtos.map((produto, index) => (
-          <div key={index}>
-            <img src={produto.imagem} alt={produto.nome} style={{width: '60px', height: '60px', objectFit: 'contain'}} />
-            <div>
-              <h4>{produto.nome}</h4>
-              <div>
+          <ProductCard key={index}>
+            <ProductImage src={produto.imagem} alt={produto.nome} />
+            <ProductInfo>
+              <ProductName>{produto.nome}</ProductName>
+              <PriceContainer>
+                <span>R$</span>
                 <input
                   type="text"
                   value={produto.precoReal}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePrecoChange(index, 'precoReal', e.target.value)}
-                  placeholder="R$"
+                  onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
                   style={{width: '50px'}}
                 />
                 <span>,</span>
                 <input
                   type="text"
                   value={produto.precoCentavos}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
-                  placeholder="00"
-                  maxLength={2}
+                  onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
                   style={{width: '30px'}}
+                  maxLength={2}
                 />
-              </div>
-            </div>
-          </div>
+              </PriceContainer>
+            </ProductInfo>
+          </ProductCard>
         ))}
       </div>
     </div>

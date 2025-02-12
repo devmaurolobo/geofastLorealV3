@@ -121,7 +121,7 @@ const Container = styled.div`
 
 const Panel = styled.div`
   flex: 1;
-  height: 85%;
+  height: 100%;
   position: relative;
   background: rgb(238, 238, 238);
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;

@@ -139,23 +139,23 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
     // Atualiza cabeça
     if (elements.cabeca) {
-      await setPropertyValue(
-        props.preview,
+        await setPropertyValue(
+          props.preview,
         elements.cabeca.source.name,
         videos.cabeca,
-        modificationsRef.current
-      );
-    }
+          modificationsRef.current
+        );
+      }
 
     // Atualiza assinatura
     if (elements.assinatura) {
-      await setPropertyValue(
-        props.preview,
+        await setPropertyValue(
+          props.preview,
         elements.assinatura.source.name,
         videos.assinatura,
-        modificationsRef.current
-      );
-    }
+          modificationsRef.current
+        );
+      }
   };
 
   // Handler para seleção de celebridade
@@ -195,7 +195,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
         <ProductCarousel preview={props.preview} maxProducts={3} />
       </Group>
- 
+
     </div>
   );
 };
