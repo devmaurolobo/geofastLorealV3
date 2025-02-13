@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 import { Header } from './Header';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Product } from './types';
 
 
 // Adicionar interface SettingsPanelProps
@@ -240,6 +241,14 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   }
 `;
 
+  const handleAddProduct = (product: Product) => {
+    // sua lógica de adicionar produto
+  };
+
+  const handleUpdatePreview = (product: Product) => {
+    // sua lógica de atualizar preview
+  };
+
   return (
     <div>
       
@@ -265,6 +274,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
         <ProductCarousel 
           preview={props.preview}
+          products={[]} 
+          onAddProduct={handleAddProduct}
+          onUpdatePreview={handleUpdatePreview}
         />
         <CreateButton preview={props.preview} />
       </Group>

@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // URL do webhook (URL da Vercel)
-    const webhookUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/webhook-video`;
+    const webhookUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}';
     console.log('🔗 Webhook URL:', webhookUrl);
 
     const requestBody = {

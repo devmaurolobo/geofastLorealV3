@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   padding: 16px 0;
   border-bottom: 1px solid #eee;
   margin-bottom: 20px;
@@ -13,12 +14,13 @@ const HeaderContainer = styled.div`
 const Logo = styled.img`
   height: 40px;
   width: auto;
+  margin-bottom: 16px;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   color: #333;
-  margin-bottom: 8px;
+  margin: 0;
   font-weight: 600;
 `;
 
@@ -26,6 +28,7 @@ const Subtitle = styled.p`
   font-size: 14px;
   color: #666;
   line-height: 1.4;
+  margin: 0;
 `;
 
 export const Header = () => {
