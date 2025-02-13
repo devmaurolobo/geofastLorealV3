@@ -84,6 +84,9 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       const data = await response.json()
       console.log('3. Dados recebidos:', data)
       
+      // Após sucesso, redireciona para a nova página
+      window.location.href = 'https://orbita.aureatech.io/version-test/viewtempate';
+      
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
       
