@@ -25,6 +25,17 @@ interface VideoUrls {
   assinatura: string;
 }
 
+// Adicionar interface Product
+interface Product {
+  id: number;
+  imagem: string;
+  titulo: string;
+  subtitulo: string;
+  feature: string;
+  precoReal: string;
+  precoCentavos: string;
+}
+
 // Adicionar componentes styled que estavam faltando
 const Group = styled.div`
   margin-bottom: 20px;
@@ -241,12 +252,14 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   }
 `;
 
-  const handleAddProduct = (product: Product) => {
-    // sua lógica de adicionar produto
+  // Remover função não utilizada
+  const handleAddProduct = (produto: Product) => {
+    // Remover esta função já que não está sendo usada
   };
 
-  const handleUpdatePreview = (product: Product) => {
-    // sua lógica de atualizar preview
+  // Remover função não utilizada
+  const handleUpdatePreview = (produto: Product) => {
+    // Remover esta função já que não está sendo usada
   };
 
   return (
@@ -274,9 +287,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
         <ProductCarousel 
           preview={props.preview}
-          products={[]} 
-          onAddProduct={handleAddProduct}
-          onUpdatePreview={handleUpdatePreview}
         />
         <CreateButton preview={props.preview} />
       </Group>
