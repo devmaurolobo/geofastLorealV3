@@ -84,15 +84,7 @@ const produtos: Produto[] = [
     precoReal: "15",
     precoCentavos: "90"
   },
-  {
-    id: 6,
-    titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml6',
-    subtitulo: "L'Oréal Paris",
-    feature: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
-    imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337525020x337669568332362940/oferta6.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "18",
-    precoCentavos: "90"
-  },
+
   {
     id: 7,
     titulo: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml7',
@@ -437,8 +429,8 @@ const ProdutoCard = styled.div<ProdutoCardProps>`
   cursor: pointer;
   box-shadow:   1px 1px 1px 1px rgba(0,0,0,0.1);
   width: 150px; // Largura fixa para todos os cards
-  height: 150px; // Altura fixa para todos os cards
-  padding: 4x;
+  height: 130px; // Altura fixa para todos os cards
+ 
 
   transition: all 0.2s ease;
   background: white;
