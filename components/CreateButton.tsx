@@ -83,10 +83,14 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       
       const data = await response.json()
       console.log('3. Dados recebidos:', data)
-      
-      // Após sucesso, redireciona para a nova página
-      window.location.href = 'https://orbita.aureatech.io/version-test/viewtempate';
-      
+      // Verifica se a resposta foi bem sucedida antes de redirecionar
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`);
+      }
+
+      // Após sucesso, redireciona usando o router do Next.js
+      router.push('https://orbita.aureatech.io/version-test/viewtemplate');
+
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
       
