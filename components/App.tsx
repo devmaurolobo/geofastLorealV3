@@ -26,9 +26,8 @@ const App: React.FC = () => {
       previewRef.current = undefined;
     };
 
-    // Once the SDK is ready, load a template from our project    const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!);
+    // Once the SDK is ready, load a template from our project
     const preview = new Preview(htmlElement, 'player', process.env.NEXT_PUBLIC_CREATOMATE_PUBLIC_TOKEN!);
-
 
     preview.onReady = async () => {
       await preview.loadTemplate(process.env.NEXT_PUBLIC_TEMPLATE_ID!);
@@ -87,6 +86,7 @@ const Component = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  background: #FCFCFC;
   flex-direction: column;
   
 
@@ -98,6 +98,7 @@ const Component = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  background: #FCFCFC;
 
   @media (min-width: 768px) {
     flex: 1;
@@ -112,20 +113,25 @@ const Container = styled.div`
   max-width: 1200px;
   max-height: 700px;
   margin: auto;
+  background: #FCFCFC;
+
 `;
 
 const Panel = styled.div`
   flex: 1;
   height: 100%;
   position: relative;
-  background: rgb(238, 238, 238);
+  background:  #FCFCFC;
+  border-radius: 8px;
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;
 
   @media (min-width: 768px) {
     flex: initial;
     margin: 50px;
-    width: 1000px;
-    border-radius: 15px;
+    width: 400px;
+    background: #ffff;
+    border-radius: 8px;
+    border: 1px solid #f5f5f5;
   }
 `;
 
@@ -134,6 +140,7 @@ const PanelContent = styled.div`
   left: 0;
   top: 0;
   width: 100%;
+  background: #ffff;
   padding: 20px;
 `;
 

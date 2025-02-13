@@ -44,8 +44,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Protetor Solar Expertise Antirrugas Com Cor FPS 60',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337496524x771520678743958500/oferta1.png?_gl=1*ll1ygi*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "25",
+    precoCentavos: "90"
   },
   {
     id: 2,
@@ -53,8 +53,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Solução de Limpeza 5 em 1 400ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337501494x571288350261434100/oferta2.png?_gl=1*d3bvp9*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "15",
+    precoCentavos: "70"
   },
   {
     id: 3,
@@ -62,8 +62,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Tratamento Sublime Reconstrutor 100ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337506674x207754128235593250/oferta3.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "14",
+    precoCentavos: "80"
   },
   {
     id: 4,
@@ -71,8 +71,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Protetor Solar Expertise Antirrugas Com Cor FPS 60',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337512240x775390511035061400/oferta4.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "12",
+    precoCentavos: "80"
   },
   {
     id: 5,
@@ -80,8 +80,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Casting Creme Gloss 400 Castanho Natural',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337517986x598654082347327400/oferta5.png?_gl=1*tv68hk*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "15",
+    precoCentavos: "90"
   },
   {
     id: 6,
@@ -89,8 +89,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337525020x337669568332362940/oferta6.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "18",
+    precoCentavos: "90"
   },
   {
     id: 7,
@@ -98,8 +98,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Óleo Extraordinário Elseve L\'Oréal Paris 100ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337530198x481989571846889860/oferta7.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "21",
+    precoCentavos: "90"
   },
   {
     id: 8,
@@ -107,8 +107,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Protetor Solar Expertise Antioleosidade FPS 60 40g',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337534944x893607253015382000/oferta8.png?_gl=1*2ko9o7*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "30",
+    precoCentavos: "90"
   },
   {
     id: 9,
@@ -116,8 +116,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris", 
     feature: 'Tratamento Sublime Reconstrutor 100ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337539978x638378810115613200/oferta9.png?_gl=1*1ce7asm*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "50",
+    precoCentavos: "60"
   },
   {
     id: 10,
@@ -125,8 +125,8 @@ const produtos: Produto[] = [
     subtitulo: "L'Oréal Paris",
     feature: 'Shampoo Hialurônico 375ml + Condicionador 170ml',
     imagem: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739337544656x185974454250747100/oferta10.png?_gl=1*1ce7asm*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTI3NjY0My4xOS4xLjE3MzkzMzcxMDEuNjAuMC4w',
-    precoReal: "0",
-    precoCentavos: "00"
+    precoReal: "70",
+    precoCentavos: "40"
   }
 ];
 

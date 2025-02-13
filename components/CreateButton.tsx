@@ -5,21 +5,28 @@ import { useRouter } from 'next/router';
 import { useVideo } from '@/contexts/VideoContext';
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
   display: block;
-  margin-left: auto;
-  background: ${props => props.disabled ? '#ccc' : '#2ecc71'};
+  width: 100%;
+  background: ${props => props.disabled ? '#ccc' : '#000DFF'};
   opacity: ${props => props.disabled ? 0.7 : 1};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
   &:hover {
-    background: ${props => props.disabled ? '#ccc' : '#27ae60'};
+    background: ${props => props.disabled ? '#ccc' : '#0052CC'};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -62,15 +69,26 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
     subscribeSSE();
 
     try {
+      console.log('1. Iniciando chamada à API com dados:', { source: props.preview.getSource() })
+      
       const response = await fetch('/api/videos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ source: props.preview.getSource() }),
-      });
-      const data = await response.json();
-      console.log('📤 Resposta da API:', data);
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ source: props.preview.getSource() })
+      })
+      
+      console.log('2. Status da resposta:', response.status)
+      
+      const data = await response.json()
+      console.log('3. Dados recebidos:', data)
+      
     } catch (error) {
-      console.error('Erro ao criar vídeo:', error);
+      console.error('❌ Erro na chamada:', {
+        mensagem: error.message,
+        dados: { source: props.preview.getSource() }
+      })
       setIsLoading(false);
       if (eventSource) {
         eventSource.close();
@@ -82,7 +100,7 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
   return (
     <div>
       <Button onClick={handleCreate} disabled={isLoading}>
-        {isLoading ? 'Processando...' : 'Criar Vídeo'}
+        {isLoading ? 'Processando...' : 'Criar Material'}
       </Button>
     </div>
   );
