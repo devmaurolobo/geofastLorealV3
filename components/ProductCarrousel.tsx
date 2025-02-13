@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Definindo a interface do produto
 interface Product {
   id: string | number;
   value?: string;
@@ -12,14 +11,15 @@ interface ProductCarrouselProps {
   onUpdatePreview: (product: Product) => void;
   preview: any;
   maxProducts: number;
+  products: Product[]; // Adicionando products como prop
 }
 
 const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ 
   onAddProduct, 
   onUpdatePreview, 
-  maxProducts 
+  maxProducts,
+  products // Recebendo products como prop
 }) => {
-  // Tipando os parâmetros da função
   const handleValueChange = (product: Product, newValue: string): void => {
     const updatedProduct: Product = {
       ...product,
