@@ -247,18 +247,19 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
     }
 
     try {
+      // Modificado para incluir precoReal e precoCentavos do produto
       const produtoSelecionado: ProdutoSelecionado = {
         id: produto.id,
         imagem: produto.imagem,
         titulo: produto.titulo,
         subtitulo: produto.subtitulo,
-        precoReal: "0",
-        precoCentavos: "00",
-        feature: produto.feature
+        feature: produto.feature,
+        precoReal: produto.precoReal, // Usa o preço do produto diretamente
+        precoCentavos: produto.precoCentavos // Usa os centavos do produto diretamente
       };
     
       // Adiciona o novo produto no próximo slot disponível
-      const novoIndex = produtosSelecionados.length; // 0, 1, ou 2
+      const novoIndex = produtosSelecionados.length;
       const novosProdutos = [...produtosSelecionados, produtoSelecionado];
       
       console.log(`➕ Adicionando produto ao slot ${novoIndex + 1}`);
@@ -273,35 +274,6 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
       console.log('✅ Preview atualizado após adição');
     } catch (error) {
       console.error('❌ Erro ao adicionar produto:', error);
-    }
-  };
-
-  const handlePrecoChange = async (index: number, campo: 'precoReal' | 'precoCentavos', valor: string) => {
-    const novosProdutos = [...produtosSelecionados];
-    
-    // Validação dos inputs
-    if (campo === 'precoReal' && !/^\d*$/.test(valor)) return;
-    if (campo === 'precoCentavos' && !/^\d{0,2}$/.test(valor)) return;
-
-    novosProdutos[index] = {
-      ...novosProdutos[index],
-      [campo]: valor
-    };
-
-    setProdutosSelecionados(novosProdutos);
-
-    try {
-      const modifications: Record<string, any> = {};
-      novosProdutos.forEach((prod, idx) => {
-        const slotNumber = idx + 1;
-        modifications[`reais${slotNumber}`] = prod.precoReal || '0';
-        modifications[`centavos${slotNumber}`] = prod.precoCentavos || '00';
-      });
-
-      await preview.setModifications(modifications);
-      console.log('✅ Preview atualizado com novos preços');
-    } catch (error) {
-      console.error('❌ Erro ao atualizar preços:', error);
     }
   };
 
@@ -373,22 +345,13 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
               
                   </ProdutoSelecionadoTextos>
                   <PrecoContainer>
-                    <PrecoWrapper>
-                      <PrecoSymbol>R$</PrecoSymbol>
-                      <PrecoInput
-                        type="text"
-                        value={produto.precoReal}
-                        onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
-                      />
-                      <PrecoSeparator>,</PrecoSeparator>
-                      <CentavosInput
-                        type="text"
-                        value={produto.precoCentavos}
-                        onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
-                        maxLength={2}
-                      />
-                    </PrecoWrapper>
-                  </PrecoContainer>
+  <PrecoWrapper>
+    <PrecoSymbol>R$</PrecoSymbol>
+    <PrecoValor>{produto.precoReal}</PrecoValor>
+    <PrecoSeparator>,</PrecoSeparator>
+    <PrecoValor>{produto.precoCentavos}</PrecoValor>
+  </PrecoWrapper>
+</PrecoContainer>
                 </ProdutoSelecionadoInfo>
               </ProdutoSelecionadoCard>
             ))}
@@ -555,37 +518,24 @@ const PrecoWrapper = styled.div`
   min-width: 80px;
 `;
 
-const PrecoInput = styled.input`
-  width: 24px;
-  border: none;
-  background: transparent;
+const PrecoValor = styled.span`
   font-size: 12px;
   color: #333;
-  text-align: right;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
+  font-weight: 500;
 `;
 
 const PrecoSymbol = styled.span`
   color: #666;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
-  margin-right: 2px;
+  margin-right: 4px;
 `;
 
 const PrecoSeparator = styled.span`
   color: #666;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  margin: 0 1px;
-`;
-
-const CentavosInput = styled(PrecoInput)`
-  width: 20px;
-  font-size: 12px;
+  margin: 0 2px;
 `;
 
 const DeleteButton = styled.button`
