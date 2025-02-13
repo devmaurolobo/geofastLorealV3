@@ -64,7 +64,13 @@ const App: React.FC = () => {
             height:
               videoAspectRatio && windowWidth && windowWidth <1500? window.innerWidth / videoAspectRatio : undefined,
           }}
-        />
+        >
+          <PreviewContainer>
+            <VideoContainer>
+              {/* Video content will be rendered here */}
+            </VideoContainer>
+          </PreviewContainer>
+        </Container>
       </Wrapper>
 
       <Panel>
@@ -117,11 +123,31 @@ const Container = styled.div`
 
 `;
 
+const PreviewContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const VideoContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Panel = styled.div`
   flex: 1;
   height: 100%;
   position: relative;
-  background: #ffff;
+  background: #FCFCFC;
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;
 
   @media (min-width: 768px) {
