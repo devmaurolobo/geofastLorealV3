@@ -1,19 +1,12 @@
 import React from 'react';
 
-interface Product {
-  id: number;
-  value?: string;
-  [key: string]: any;
-}
-
 interface ProductCarrouselProps {
-  products: Product[];
-  onAddProduct: (product: Product) => void;
-  onUpdatePreview: (product: Product) => void;
+  onAddProduct: (product: any) => void;
+  onUpdatePreview: (product: any) => void;
 }
 
-const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ products, onAddProduct, onUpdatePreview }) => {
-  const handleValueChange = (product: Product, newValue: string) => {
+const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ onAddProduct, onUpdatePreview }) => {
+  const handleValueChange = (product, newValue) => {
     // Atualiza o valor do produto
     const updatedProduct = {
       ...product,
