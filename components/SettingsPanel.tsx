@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
 import { CreateButton } from './CreateButton';
 import { ProductCarousel } from './ProductCarousel';
+import Slider from 'react-slick';
+import { Header } from './Header';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 // Adicionar interface SettingsPanelProps
@@ -67,22 +71,22 @@ const celebridades = [
   {
     id: 1,
     nome: 'AJ',
-    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
+    foto: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739390984397x221334746432352960/thumbAJ.png?_gl=1*15q0sf8*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTM2ODU5NS4yMC4xLjE3MzkzOTA5NDMuNjAuMC4w'
   },
   {
     id: 2,
     nome: 'CD',
-    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
+    foto: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739390968563x210028769460394400/thumbCD.png?_gl=1*15q0sf8*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTM2ODU5NS4yMC4xLjE3MzkzOTA5NDMuNjAuMC4w'
   },
   {
     id: 3,
     nome: 'CL',
-    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
+    foto: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739391050283x935105451254024800/thumbCL.png?_gl=1*r2kq2w*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTM2ODU5NS4yMC4xLjE3MzkzOTA5NDMuNjAuMC4w'
   },
   {
     id: 4,
     nome: 'PB',
-    foto: 'https://02cababed70b81fd6ba44180993206c4.cdn.bubble.io/f1738866274704x787186918500453900/Leonardo_Phoenix_10_INSTITUCIONALPREGAO_DE_GUERRASUPER_MEGA_VE_2.jpg?_gl=1*p4tvop*_gcl_aw*R0NMLjE3Mzg3NTA4NzkuQ2p3S0NBaUF0WXk5QmhCY0Vpd0FOV1FRTDhNaXhLQzJzWUR3Q0gyeU1JMTdqenVPZWt4eXBINVlpSXBOY3M2Y1VERjF4bWpMcFVWZmN4b0NCNHdRQXZEX0J3RQ..*_gcl_au*MTI4Nzk3MzgyMy4xNzM0OTE2MTcw*_ga*MTM2NDM0MTY0MS4xNjk4MTY1OTE2*_ga_BFPVR2DEE2*MTczOTMxNzgzMi4yMTcuMS4xNzM5MzE3ODUzLjM5LjAuMA..'
+    foto: 'https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739390977215x115139737743763520/thumbPB.png?_gl=1*ykfpj*_gcl_au*MTk1MDgwMTUyNy4xNzM5MjE3MDAw*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTM2ODU5NS4yMC4xLjE3MzkzOTA5NDMuNjAuMC4w'
   }
 ];
 
@@ -169,56 +173,121 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     }
   };
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+        }
+      }
+    ]
+  };
+  const CelebrityCarousel = styled(Slider)`
+  margin-top: 15px;
+  
+
+  .slick-track {
+    display: flex;
+    gap: 8px;
+  }
+
+  .slick-prev,
+  .slick-next {
+    width: 8px;
+    height: 24px;
+    z-index: 1;
+    
+    &:before {
+      color: #2D9CA4; // Cor principal das setas
+      font-size: 24px;
+      opacity: 1;
+    }
+
+    &:hover:before {
+      color: #248891; // Cor ao passar o mouse
+    }
+
+    &.slick-disabled:before {
+      color: #ccc; // Cor quando desabilitado
+    }
+  }
+
+  .slick-prev {
+    left: -10px;
+    &:before {
+      content: '‹'; // Símbolo personalizado para seta esquerda
+    }
+  }
+
+  .slick-next {
+    right: -10px;
+    &:before {
+      content: '›'; // Símbolo personalizado para seta direita
+    }
+  }
+`;
   return (
     <div>
-      <CreateButton preview={props.preview} />
       
       {/* Lista de Celebridades */}
       <Group>
+      <Header />
         <GroupTitle>Selecione a Celebridade</GroupTitle>
-        <CelebrityList>
+        <CelebrityCarousel {...settings}>
           {celebridades.map((celeb) => (
             <ItemCard 
               key={celeb.id}
               selected={selectedCelebridade === celeb.nome}
               onClick={() => handleCelebridadeSelect(celeb.nome)}
             >
-              <CelebrityImage src={celeb.foto} alt={celeb.nome} />
-              <ItemName>{celeb.nome}</ItemName>
+              <CelebrityImage src={celeb.foto} alt={celeb.nome} />          
             </ItemCard>
           ))}
-        </CelebrityList>
+        </CelebrityCarousel>  
       </Group>
 
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <ProductCarousel preview={props.preview} />
+        <ProductCarousel preview={props.preview} maxProducts={3} />
+        <CreateButton preview={props.preview} />
       </Group>
 
     </div>
   );
 };
 
-// Estilos para os dropdowns
-const CelebrityList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 30px;
-  margin-top: 15px;
-`;
 
 
-const ItemCard = styled.div<{ selected?: boolean }>`
+const ItemCard = styled.div<{ selected: boolean }>`
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border-radius: 12px;
-  border: 2px solid ${props => props.selected ? '#0066cc' : '#ddd'};
+  justify-content: center;
+  border-radius: 4px;
+  border: 2px solid ${props => props.selected ? '#2D9CA4' : 'F5F5F5'};
   cursor: pointer;
+  padding: 2px;
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+
   transition: all 0.2s ease;
   background: white;
+  margin: 0 auto;
 
   &:hover {
     transform: translateY(-2px);
@@ -228,9 +297,9 @@ const ItemCard = styled.div<{ selected?: boolean }>`
 
 const CelebrityImage = styled.img`
   width: 100%;
-  height: 240px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  border-radius: 2px;
+  display: block;
 `;
 
