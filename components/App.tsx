@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
 import { useWindowWidth } from '../utility/useWindowWidth';
-import { SimpleSettingsPanel } from './SettingsPanel';
+import SettingsPanel from './SettingsPanel';
 
 const App: React.FC = () => {
   // React Hook to update the component when the window width changes
@@ -70,7 +70,7 @@ const App: React.FC = () => {
       <Panel>
         {isReady && (
           <PanelContent id="panel">
-            <SimpleSettingsPanel preview={previewRef.current!} currentState={currentState} />
+            <SettingsPanel preview={previewRef.current!} currentState={currentState} />
           </PanelContent>
         )}
       </Panel>
@@ -86,7 +86,7 @@ const Component = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  background: #FCFCFC;
+  background: rgb
   flex-direction: column;
   
 
@@ -121,16 +121,15 @@ const Panel = styled.div`
   flex: 1;
   height: 100%;
   position: relative;
-  background:  #FCFCFC;
-  border-radius: 8px;
+  background: #ffff;
   box-shadow: rgba(190, 48, 48, 0.1) 0 6px 15px 0;
 
   @media (min-width: 768px) {
     flex: initial;
     margin: 50px;
-    width: 400px;
+    width: 450px;
     background: #ffff;
-    border-radius: 8px;
+    border-radius: 5px;
     border: 1px solid #f5f5f5;
   }
 `;
