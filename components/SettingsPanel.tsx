@@ -264,10 +264,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
   return (
     <div>
-      
-      {/* Lista de Celebridades */}
-      <Group>
       <Header />
+      <Group>
         <GroupTitle>Selecione a Celebridade</GroupTitle>
         <CelebrityCarousel {...settings}>
           {celebridades.map((celeb) => (
@@ -288,9 +286,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <ProductCarousel 
           preview={props.preview}
         />
-        <CreateButton preview={props.preview} />
       </Group>
-
     </div>
   );
 };
