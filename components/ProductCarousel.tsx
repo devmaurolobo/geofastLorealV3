@@ -9,7 +9,6 @@ import { Preview } from '@creatomate/preview';
 // Interfaces
 interface ProductCarouselProps {
   preview: Preview;
-  maxProducts?: number;
 }
 
 interface Produto {
@@ -330,7 +329,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
   return (
     <Container>
       <CarouselSection>
-        <SectionTitle>Ofertas Disponíveis</SectionTitle>
+
         <StyledSlider {...settings}>
           {produtos.map((produto) => {
             const slotNumber = produtosSelecionados.findIndex(p => p.titulo === produto.titulo) + 1;
@@ -355,7 +354,13 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
 
       {produtosSelecionados.length > 0 && (
         <SelectedSection>
-          <SectionTitle>Produtos Selecionados</SectionTitle>
+          <SectionTitle>
+            <CartIcon 
+              src="https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739408201530x447285901418742000/solar_bag-3-outline.svg" 
+              alt="Ícone de carrinho"
+            />
+            Ofertas
+          </SectionTitle>
           <ProdutosSelecionadosList>
             {produtosSelecionados.map((produto, index) => (
               <ProdutoSelecionadoCard key={index}>
@@ -364,30 +369,25 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
                 <ProdutoSelecionadoInfo>
                   <ProdutoSelecionadoTextos>
                     <ProdutoSelecionadoTitulo>{produto.titulo}</ProdutoSelecionadoTitulo>
-                    <ProdutoSelecionadoSubtitulo>{produto.subtitulo}</ProdutoSelecionadoSubtitulo>
+              
                   </ProdutoSelecionadoTextos>
                   <PrecoContainer>
-                    <PrecoWrapper>
-                      <PrecoSymbol>R$</PrecoSymbol>
-                      <PrecoInput
-                        type="text"
-                        value={produto.precoReal}
-                        onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
-                      />
-                      <PrecoSeparator>,</PrecoSeparator>
-                      <CentavosInput
-                        type="text"
-                        value={produto.precoCentavos}
-                        onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
-                        maxLength={2}
-                      />
-                    </PrecoWrapper>
-                    <DeleteButton onClick={(e) => { e.stopPropagation(); handleProdutoSelect(produto); }}>
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                      </svg>
-                    </DeleteButton>
-                  </PrecoContainer>
+  <PrecoWrapper>
+    <PrecoSymbol>R$</PrecoSymbol>
+    <PrecoInput
+      type="text"
+      value={produto.precoReal}
+      onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
+    />
+    <PrecoSeparator>,</PrecoSeparator>
+    <CentavosInput
+      type="text"
+      value={produto.precoCentavos}
+      onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
+      maxLength={2}
+    />
+  </PrecoWrapper>
+</PrecoContainer>
                 </ProdutoSelecionadoInfo>
               </ProdutoSelecionadoCard>
             ))}
@@ -399,14 +399,54 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
 };
 
 // Estilos
-const Container = styled.div`
-  padding: 20px 40px;
+const Container = styled.div`  
+
 `;
 
 const CarouselSection = styled.section`
-  margin-bottom: 30px;
-`;
+  margin-top: 15px;
+  padding: 5px;
 
+  .slick-track {
+    display: flex;
+    gap: 8px;
+  }
+
+  .slick-prev,
+  .slick-next {
+    width: 12px;
+    height: 24px;
+    z-index: 1;
+    
+    &:before {
+      color: #2D9CA4; // Cor principal das setas
+      font-size: 24px;
+      opacity: 1;
+    }
+
+    &:hover:before {
+      color: #248891; // Cor ao passar o mouse
+    }
+
+    &.slick-disabled:before {
+      color: #ccc; // Cor quando desabilitado
+    }
+  } 
+
+  .slick-prev {
+    left: -20px;
+    &:before {
+      content: '‹'; // Símbolo personalizado para seta esquerda
+    }
+  }
+
+  .slick-next {
+    right: -16px;
+    &:before {
+      content: '›'; // Símbolo personalizado para seta direita
+    }
+  }
+`;
 const SelectedSection = styled.section`
   margin-top: 30px;
   width: 100%;
@@ -421,66 +461,48 @@ const SectionTitle = styled.h3`
 const StyledSlider = styled(Slider)`
   .slick-track {
     display: flex;
-    gap: 15px;
+    gap: 10px;
   }
 `;
-
 const ProdutoCard = styled.div<ProdutoCardProps>`
-  position: relative;
-  padding: 20px;
-  border-radius: 12px;
-  border: 2px solid ${props => props.selected ? '#4CAF50' : '#e0e0e0'};
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: ${props => props.selected ? '#f8fff8' : 'white'};
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  height: 340px;
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border-radius: 4px;
+  border: 2px solid ${props => props.selected ? '#2D9CA4' : 'F5F5F5'};
+  cursor: pointer;
+  box-shadow:   1px 1px 1px 1px rgba(0,0,0,0.1);
+  width: 150px; // Largura fixa para todos os cards
+  height: 150px; // Altura fixa para todos os cards
+  padding: 4x;
+
+  transition: all 0.2s ease;
+  background: white;
+  margin: 2px auto; // Adicionada margem superior e inferior de 20px
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  }
-
-  &:after {
-    content: '${props => props.selected ? props.slotNumber || '✓' : ''}';
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
-    color: white;
-    border-radius: 50%;
-    display: ${props => props.selected ? 'flex' : 'none'};
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    border: 2px solid white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
   }
 `;
 
 const ProdutoImage = styled.img`
-  width: 100%;
-  height: 200px;
+  height: 80px;
+  width: 80px;
   object-fit: contain;
-  margin-bottom: 12px;
-  padding: 10px;
-  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin: 0 auto;
+  padding: 4px;
+  display: block;
 `;
-
 const ProdutoImageSmall = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
-  margin-right: 24px;
-  padding: 8px;
-  background: #f8f8f8;
-  border-radius: 8px;
+  margin-right: 8px;
+  padding: 2px;
+  background: #fff;
+  border-radius: 4px;
 `;
 
 const ProdutoInfo = styled.div`
@@ -490,27 +512,29 @@ const ProdutoInfo = styled.div`
 `;
 
 const ProdutoTitulo = styled.h4`
-  font-size: 15px;
+  font-size: 8px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
   text-align: center;
+  padding: 0 8px;
 `;
 
 const ProdutoSubtitulo = styled.div`
-  font-size: 13px;
+  font-size: 6px;
   color: #666;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   text-align: center;
+  padding: 0 8px;
 `;
 
 const ProdutoFeature = styled.div`
-  font-size: 12px;
+  font-size: 6px;
   color: #888;
-  line-height: 1.3;
+  line-height: 1.2;
   text-align: center;
-  padding: 0 10px;
+  padding: 0 8px;
 `;
 
 const PrecoContainer = styled.div`
@@ -520,14 +544,30 @@ const PrecoContainer = styled.div`
   gap: 12px;
   margin-top: 8px;
 `;
-
 const PrecoWrapper = styled.div`
   display: flex;
   align-items: center;
-  background: #f8f8f8;
+  justify-content: flex-end; // Alinha o conteúdo à direita
+  background: #FFFFF5;
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #F5F5F5;
+  margin-left: 80px;ra o elemento para a direita
+  min-width: 120px; // Garante um espaço mínimo
+`;
+
+const PrecoInput = styled.input`
+  width: 32px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  text-align: right; // Alinha o texto do input à direita
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const PrecoSymbol = styled.span`
@@ -544,24 +584,7 @@ const PrecoSeparator = styled.span`
   margin: 0 2px;
 `;
 
-const PrecoInput = styled.input`
-  width: 32px;
-  border: none;
-  background: transparent;
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
-  text-align: center;
-  padding: 0;
 
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #999;
-  }
-`;
 
 const CentavosInput = styled(PrecoInput)`
   width: 24px;
@@ -599,63 +622,71 @@ const ProdutosSelecionadosList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-otton: 15px;
   width: 100%;
 `;
 
 const ProdutoSelecionadoCard = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 12px 20px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   border: 1px solid #eee;
-  transition: all 0.2s ease;
-  margin: 0;
-  padding: 20px 40px;
+  height: 48PX;
+  position: relative;
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
   }
 `;
-
 const SlotBadge = styled.div`
   position: relative;
-  left: -60px;
-  width: 30px;
-  height: 30px;
-  background: #4CAF50;
+  left: -25px;
+  width: 24px;
+  height: 24px;
+  background: #CACACA;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   z-index: 10;
 `; 
 
 const ProdutoSelecionadoInfo = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
+ ;
 `;
 
 const ProdutoSelecionadoTextos = styled.div`
-  margin-bottom: 8px;
+  text-align: center;
 `;
 
 const ProdutoSelecionadoTitulo = styled.h5`
-  font-size: 14px;
+  font-size: 8px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 4px 0;
+  line-height: 1.3;
+  text-align: center;
 `;
 
 const ProdutoSelecionadoSubtitulo = styled.div`
-  font-size: 12px;
+  font-size: 6px;
   color: #666;
+  margin-bottom: 4px;
+  text-align: center;
+`;
+
+const CartIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 `;
