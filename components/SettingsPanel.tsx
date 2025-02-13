@@ -118,7 +118,7 @@ const videosConfig = {
   }
 } as const;
 
-export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
+const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   const modificationsRef = useRef<Record<string, any>>({});
   const [selectedCelebridade, setSelectedCelebridade] = useState<string>('');
   const [selectedSegmento, setSelectedSegmento] = useState<string>('Tecnologia'); // Valor padrão
@@ -239,6 +239,15 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     }
   }
 `;
+
+  const handleAddProduct = (product: Product) => {
+    // sua lógica de adicionar produto
+  };
+
+  const handleUpdatePreview = (product: Product) => {
+    // sua lógica de atualizar preview
+  };
+
   return (
     <div>
       
@@ -262,7 +271,13 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <ProductCarousel preview={props.preview} maxProducts={3} />
+        <ProductCarousel 
+          preview={props.preview}
+          maxProducts={3}
+          products={[]} // Adicione seus produtos aqui
+          onAddProduct={handleAddProduct}
+          onUpdatePreview={handleUpdatePreview}
+        />
         <CreateButton preview={props.preview} />
       </Group>
 
@@ -270,7 +285,7 @@ export const SimpleSettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   );
 };
 
-
+export default SettingsPanel;
 
 const ItemCard = styled.div<{ selected: boolean }>`
   position: relative;
