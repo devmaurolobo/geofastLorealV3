@@ -2,12 +2,11 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
 import { CreateButton } from './CreateButton';
-import { ProductCarousel } from './ProductCarousel';
+import { ProductCarrousel } from './ProductCarrousel';
 import Slider from 'react-slick';
 import { Header } from './Header';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Product } from './types';
 
 
 // Adicionar interface SettingsPanelProps
@@ -241,14 +240,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   }
 `;
 
-  const handleAddProduct = (product: Product) => {
-    // sua lógica de adicionar produto
-  };
-
-  const handleUpdatePreview = (product: Product) => {
-    // sua lógica de atualizar preview
-  };
-
   return (
     <div>
       
@@ -272,7 +263,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <ProductCarousel 
+        <ProductCarrousel 
           preview={props.preview}
           maxProducts={3}
           products={[]} 
