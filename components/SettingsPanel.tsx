@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
 import { CreateButton } from './CreateButton';
-import { ProductCarrousel } from './ProductCarrousel';
+import { ProductCarousel } from './ProductCarousel';
 import Slider from 'react-slick';
 import { Header } from './Header';
 import "slick-carousel/slick/slick.css";
@@ -263,12 +263,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
       {/* Lista de Ofertas */}
       <Group>
         <GroupTitle>Ofertas Disponíveis</GroupTitle>
-        <ProductCarrousel 
+        <ProductCarousel 
           preview={props.preview}
-          maxProducts={3}
-          products={[]} 
-          onAddProduct={handleAddProduct}
-          onUpdatePreview={handleUpdatePreview}
         />
         <CreateButton preview={props.preview} />
       </Group>

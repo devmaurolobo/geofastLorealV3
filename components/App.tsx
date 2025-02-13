@@ -139,7 +139,7 @@ const PanelContent = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  background: #ffff;
+  background: #FCFCFC;
   padding: 20px;
 `;
 
