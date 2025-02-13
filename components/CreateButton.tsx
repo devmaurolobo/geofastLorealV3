@@ -84,11 +84,13 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       const data = await response.json()
       console.log('3. Dados recebidos:', data)
       
-    } catch (error) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+      
       console.error('❌ Erro na chamada:', {
-        mensagem: error.message,
+        mensagem: errorMessage,
         dados: { source: props.preview.getSource() }
-      })
+      });
       setIsLoading(false);
       if (eventSource) {
         eventSource.close();
