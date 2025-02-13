@@ -1,28 +1,38 @@
 import React from 'react';
 
-interface ProductCarrouselProps {
-  onAddProduct: (product: any) => void;
-  onUpdatePreview: (product: any) => void;
+// Definindo a interface do produto
+interface Product {
+  id: string | number;
+  value?: string;
+  // outras propriedades do produto
 }
 
-const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ onAddProduct, onUpdatePreview }) => {
-  const handleValueChange = (product, newValue) => {
-    // Atualiza o valor do produto
-    const updatedProduct = {
+interface ProductCarrouselProps {
+  onAddProduct: (product: Product) => void;
+  onUpdatePreview: (product: Product) => void;
+  preview: any;
+  maxProducts: number;
+}
+
+const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ 
+  onAddProduct, 
+  onUpdatePreview, 
+  maxProducts 
+}) => {
+  // Tipando os parâmetros da função
+  const handleValueChange = (product: Product, newValue: string): void => {
+    const updatedProduct: Product = {
       ...product,
       value: newValue
     };
 
-    // Executa a função de adicionar produto
     onAddProduct(updatedProduct);
-    
-    // Executa a função de atualizar preview
     onUpdatePreview(updatedProduct);
   };
 
   return (
     <div>
-      {products.map((product) => (
+      {products?.slice(0, maxProducts).map((product: Product) => (
         <div key={product.id}>
           <input
             type="text"
@@ -46,4 +56,4 @@ const ProductCarrousel: React.FC<ProductCarrouselProps> = ({ onAddProduct, onUpd
   );
 };
 
-export default ProductCarrousel;
+export default ProductCarrousel; 
