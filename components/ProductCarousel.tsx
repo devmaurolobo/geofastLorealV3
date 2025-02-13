@@ -373,22 +373,22 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ preview }) => 
               
                   </ProdutoSelecionadoTextos>
                   <PrecoContainer>
-  <PrecoWrapper>
-    <PrecoSymbol>R$</PrecoSymbol>
-    <PrecoInput
-      type="text"
-      value={produto.precoReal}
-      onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
-    />
-    <PrecoSeparator>,</PrecoSeparator>
-    <CentavosInput
-      type="text"
-      value={produto.precoCentavos}
-      onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
-      maxLength={2}
-    />
-  </PrecoWrapper>
-</PrecoContainer>
+                    <PrecoWrapper>
+                      <PrecoSymbol>R$</PrecoSymbol>
+                      <PrecoInput
+                        type="text"
+                        value={produto.precoReal}
+                        onChange={(e) => handlePrecoChange(index, 'precoReal', e.target.value)}
+                      />
+                      <PrecoSeparator>,</PrecoSeparator>
+                      <CentavosInput
+                        type="text"
+                        value={produto.precoCentavos}
+                        onChange={(e) => handlePrecoChange(index, 'precoCentavos', e.target.value)}
+                        maxLength={2}
+                      />
+                    </PrecoWrapper>
+                  </PrecoContainer>
                 </ProdutoSelecionadoInfo>
               </ProdutoSelecionadoCard>
             ))}
@@ -542,28 +542,26 @@ const PrecoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 8px;
+  margin-left: auto;
 `;
 const PrecoWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end; // Alinha o conteúdo à direita
-  background: #FFFFF5;
-  padding: 8px 12px;
-  border-radius: 6px;
+  justify-content: flex-end;
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
   border: 1px solid #F5F5F5;
-  margin-left: 80px;ra o elemento para a direita
-  min-width: 120px; // Garante um espaço mínimo
+  min-width: 80px;
 `;
 
 const PrecoInput = styled.input`
-  width: 32px;
+  width: 24px;
   border: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 12px;
   color: #333;
-  text-align: right; // Alinha o texto do input à direita
+  text-align: right;
   padding: 0;
 
   &:focus {
@@ -573,22 +571,21 @@ const PrecoInput = styled.input`
 
 const PrecoSymbol = styled.span`
   color: #666;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 500;
-  margin-right: 4px;
+  margin-right: 2px;
 `;
 
 const PrecoSeparator = styled.span`
   color: #666;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  margin: 0 2px;
+  margin: 0 1px;
 `;
 
-
-
 const CentavosInput = styled(PrecoInput)`
-  width: 24px;
+  width: 20px;
+  font-size: 12px;
 `;
 
 const DeleteButton = styled.button`
@@ -629,7 +626,7 @@ const ProdutosSelecionadosList = styled.div`
 
 const ProdutoSelecionadoCard = styled.div`
   display: flex;
-  align-items: center;
+  align-items: space-between;
   padding: 12px 20px;
   background: white;
   border-radius: 8px;

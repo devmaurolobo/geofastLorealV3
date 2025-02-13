@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Preview, PreviewState } from '@creatomate/preview';
-import { CreateButton } from './CreateButton';
 import { ProductCarousel } from './ProductCarousel';
 import Slider from 'react-slick';
 import { Header } from './Header';
@@ -51,6 +50,21 @@ const ItemName = styled.span`
   font-size: 14px;
   text-align: center;
   margin-top: 8px;
+`;
+
+const SectionTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+`;
+
+const CartIcon = styled.img`
+  width: 20px;
+  height: 20px;
 `;
 
 // Adicionar funções utilitárias
@@ -264,9 +278,15 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
   return (
     <div>
-      <Header />
+      
+      {/* Lista de Celebridades */}
       <Group>
-        <GroupTitle>Selecione a Celebridade</GroupTitle>
+      <Header />
+          <CartIcon 
+            src="https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739407996256x216196674506145660/mage_stars-b.png?_gl=1*1t0x47v*_gcl_au*MTY3MzEzOTQzOC4xNzM5NDI3NDA4*_ga*MTU0NTM0MjAyNC4xNzM3MTQzMjQz*_ga_BFPVR2DEE2*MTczOTM2ODU5NS4yMC4xLjE3Mzk0NDYyNzAuMzQuMC4w" 
+            alt="Ícone de carrinho"
+          />
+          Celebridades
         <CelebrityCarousel {...settings}>
           {celebridades.map((celeb) => (
             <ItemCard 
@@ -282,11 +302,18 @@ const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
       {/* Lista de Ofertas */}
       <Group>
-        <GroupTitle>Ofertas Disponíveis</GroupTitle>
+        <SectionTitle>
+          <CartIcon 
+            src="https://12a3388ae72b3046e48cc88a697af4c7.cdn.bubble.io/f1739408197355x469774618452221400/proicons_box.svg" 
+            alt="Ícone de carrinho"
+          />
+          Produtos
+        </SectionTitle>
         <ProductCarousel 
           preview={props.preview}
         />
       </Group>
+
     </div>
   );
 };

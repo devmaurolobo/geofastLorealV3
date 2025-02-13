@@ -139,6 +139,7 @@ const VideoContainer = styled.div`
   height: 100%;
   background: white;
   display: flex;
+    background: #FCFCFC;
   justify-content: center;
   align-items: center;
 `;
