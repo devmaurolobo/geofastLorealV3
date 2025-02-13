@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import { Header } from './Header';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Product } from './types';
+
 
 
 // Adicionar interface SettingsPanelProps
